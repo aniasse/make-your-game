@@ -35,7 +35,6 @@ body{
     background-color: green;
 }
 .player {
-    background-color: transparent;
     background-image: url('../images/Bomberman.png');
     background-size: contain;
 }
