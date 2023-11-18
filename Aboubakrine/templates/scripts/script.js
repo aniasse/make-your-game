@@ -1,30 +1,11 @@
-// import { pattern } from "./pattern,js";
+import { pattern } from "./pattern.js";
 
 const gridSize = 15;
 const grid = document.getElementById('grid');
 const cells = [];
 
-// initialise les coordonnées du joueur principal
+// initialisation des coordonnées du joueur principal
 const initPlayerPos = { row: 1, col: 1 };
-
-const pattern = [
-    "XXXXXXXXXXXXXXX",
-    "XVVVVVVVVVVVVVX",
-    "XVXVXVXVXVXVXVX",
-    "XVVVVVVVVVVVVVX",
-    "XVXVXVXVXVXVXVX",
-    "XVVVVVVVVVVVVVX",
-    "XVXVXVXVXVXVXVX",
-    "XVVVVVVVVVVVVVX",
-    "XVXVXVXVXVXVXVX",
-    "XVVVVVVVVVVVVVX",
-    "XVXVXVXVXVXVXVX",
-    "XVVVVVVVVVVVVVX",
-    "XVXVXVXVXVXVXVX",
-    "XVVVVVVVVVVVVVX",
-    "XXXXXXXXXXXXXXX"
-];
-
 
 // Initialisation grid de base
 for (let i = 0; i < gridSize; i++) {
@@ -33,7 +14,7 @@ for (let i = 0; i < gridSize; i++) {
         cell.dataset.row = i;
         cell.dataset.col = j;
 
-        // placement murs et cellules vides
+        // placement murs player et cellules vides
         if (pattern[i][j] === "X") {
             cell.className = 'cell wall';
         } else if (i === initPlayerPos.row && j === initPlayerPos.col) {
@@ -47,7 +28,7 @@ for (let i = 0; i < gridSize; i++) {
     }
 };
 
-// depacement jouer principal
+// deplacement joueur principal
 
 document.addEventListener('keydown', (event) => {
     const playerPos = document.querySelector('.player');
@@ -72,7 +53,9 @@ document.addEventListener('keydown', (event) => {
             return;
     }
 
-    // Vérifiez si les nouvelles coordonnées sont dans les limites de la grille et si la cellule est vide
+    /*  Vérifiez si les nouvelles coordonnées 
+        sont dans les limites de la grille et 
+        si la cellule est vide  */
     if (
         newRow >= 0 && newRow < gridSize && 
         newCol >= 0 && newCol < gridSize && 
