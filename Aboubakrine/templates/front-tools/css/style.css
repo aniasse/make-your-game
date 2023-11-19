@@ -17,13 +17,14 @@ body{
     background-color: green;
     display: grid;
     grid-template-columns: repeat(15, 40px);
+    /* gap: 0.5px; */
 }
 
 .cell {
     width: 40px;
     height: 40px;
     display: inline-block;
-    
+    border-radius: 2px; 
 }
 
 .wall {
@@ -34,7 +35,13 @@ body{
 .empty {
     background-color: green;
 }
-.player {
+.player{
     background-image: url('../images/Bomberman.png');
     background-size: contain;
 }
+.bomb {
+    background-color: red;
+    background-image: url('../images/bomb.png');
+    position: absolute;
+    z-index: 999;
+} 
