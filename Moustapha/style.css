@@ -1,0 +1,5 @@
+body{
+    background-image: url("ressources/wallpaper.jpg");
+    background-size: cover; /* Pour ajuster la taille de l'image à l'écran */
+    background-repeat: no-repeat; 
+}
