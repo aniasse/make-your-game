@@ -35,13 +35,16 @@ body{
 .empty {
     background-color: green;
 }
+.player.bomb,
 .player{
     background-image: url('../images/Bomberman.png');
     background-size: contain;
 }
 .bomb {
-    background-color: red;
     background-image: url('../images/bomb.png');
-    position: absolute;
-    z-index: 999;
+    background-size: cover;
 } 
+.brick{
+    background-image: url('../images/brick.png');
+    background-size: contain;
+}
