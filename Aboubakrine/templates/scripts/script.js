@@ -1,4 +1,8 @@
-import { pattern } from "./pattern.js";
+import { pattern, pattern1, pattern2, pattern3, pattern4, pattern5 } from "./pattern.js";
+
+const patterns = [pattern, pattern1, pattern2, pattern3, pattern4, pattern5]
+const randomIndex = Math.floor(Math.random() * patterns.length);
+const model = patterns[randomIndex];
 
 const gridSize = 15;
 const grid = document.getElementById('grid');
@@ -17,10 +21,12 @@ for (let i = 0; i < gridSize; i++) {
         cell.dataset.col = j;
 
         // placement murs player et cellules vides
-        if (pattern[i][j] === "X") {
+        if (model[i][j] === "X") {
             cell.className = 'cell wall';
+        }else if (model[i][j] === "B") {
+            cell.className = 'cell brick';
         } else if (i === initPlayerPos.row && j === initPlayerPos.col) {
-            cell.className = 'cell player';
+            cell.className = 'cell empty player';
         } else {
             cell.className = 'cell empty';
         }
@@ -51,6 +57,11 @@ document.addEventListener('keydown', (event) => {
         case 'ArrowRight':
             newCol++;
             break;
+        case ' ':
+        case 'Spacebar':
+            placeBomb();
+            console.log('placement bomb')
+            return; 
         default:
             return;
     }
@@ -61,7 +72,8 @@ document.addEventListener('keydown', (event) => {
     if (
         newRow >= 0 && newRow < gridSize && 
         newCol >= 0 && newCol < gridSize && 
-        pattern[newRow][newCol] !== "X"
+        model[newRow][newCol] !== "X" &&
+        model[newRow][newCol] !== "B"
         ) {
         // Déplacez le joueur vers la nouvelle position
         playerPos.classList.remove('player');
@@ -72,39 +84,18 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// placement bomb 
+
+
+/* placement bomb  */
 const bombDelay = 2000; // Délai en millisecondes avant l'explosion de la bombe
-let canPlaceBomb = true;
 
 function placeBomb() {
-    if (canPlaceBomb) {
-        const bombPos = { row: initPlayerPos.row, col: initPlayerPos.col };
+    const bombPos = { row: initPlayerPos.row, col: initPlayerPos.col };
 
-        // Créer l'élément de la bombe et l'ajouter à la grille
-        const bomb = document.createElement('div');
-        bomb.classList.add('cell', 'bomb');
-        bomb.dataset.row = bombPos.row;
-        bomb.dataset.col = bombPos.col;
-        grid.appendChild(bomb);
-        console.log(bomb)
-        // Définir un délai avant l'explosion de la bombe
-        // setTimeout(() => {
-        //     explodeBomb(bombPos);
-        // }, bombDelay);
+    // Récupérer la cellule à la position de la bombe
+    const bombCell = cells[bombPos.row * gridSize + bombPos.col];
 
-        // Empêcher le joueur de placer une autre bombe immédiatement
-        canPlaceBomb = false;
-        setTimeout(() => {
-            canPlaceBomb = true;
-        }, bombDelay + 1000); // Permettre au joueur de placer une autre bombe après l'explosion
-    }
+    // Ajouter la classe 'bomb' à la cellule
+    bombCell.classList.add('bomb');
 }
 
-
-// Écouteur d'événements pour placer des bombes (par exemple, appuyer sur la barre d'espace)
-document.addEventListener('keydown', (event) => {
-    if (event.key === ' ' || event.key === 'Spacebar') {
-        console.log('place bomb')
-        placeBomb();
-    }
-});
