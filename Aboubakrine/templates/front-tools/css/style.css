@@ -43,8 +43,24 @@ body{
 .bomb {
     background-image: url('../images/bomb.png');
     background-size: cover;
+    animation: heartbeat 1s infinite;
 } 
 .brick{
     background-image: url('../images/brick.png');
     background-size: contain;
 }
+.onde{
+    background-image: url('../images/boom.png');
+    background-size: contain;
+}
+@keyframes heartbeat {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
