@@ -104,5 +104,33 @@ function explodeBomb(bombPos){
     const bombCell = cells[bombPos.row * gridSize + bombPos.col];
     bombCell.classList.remove('bomb')
 
-    // logique d'explosion
+   // determination onde d'explosion
+    propagateExplosion(bombPos.row, bombPos.col);
+    propagateExplosion(bombPos.row - 1 , bombPos.col);
+    propagateExplosion(bombPos.row + 1 , bombPos.col);
+    propagateExplosion(bombPos.row , bombPos.col - 1);
+    propagateExplosion(bombPos.row , bombPos.col + 1);
+}
+
+ // logique d'explosion
+
+function propagateExplosion(row, col) {
+    const currentCell = cells[row * gridSize + col];
+    if (model[row][col] !== 'X') {
+        currentCell.classList.add('onde');
+    }
+
+    setTimeout(() => {
+        currentCell.classList.remove('onde');
+    }, 1000);
+
+   // destruction brick
+    if (model[row][col] === 'B') {
+        model[row][col] = 'V'; 
+    }
+
+
+    if (model[row][col] === 'V') {
+        currentCell.classList.remove('brick');
+    }
 }
