@@ -1,8 +1,8 @@
 
-### Bomberman
+# Bomberman
 
 
-### Roadmap
+## Roadmap
 
 - Grid de base
 
@@ -13,7 +13,7 @@
 - Logique d'explosion
 
 
-### Structure du Projet
+## Structure du Projet
 
 Le projet Bomberman est organisé autour d'une structure de dossiers et de fichiers. 
 Voici une vue d'ensemble de cette structure :
@@ -37,7 +37,7 @@ Voici une vue d'ensemble de cette structure :
 
                 |   |   ├── pattern.js
 
-### Fonctionnalités Clés
+## Fonctionnalités Clés
 
     - Initialisation de la grille du jeu avec des murs, des espaces vides, et un joueur.
     - Déplacement du joueur à travers les espaces vides en utilisant les touches de direction.
@@ -45,7 +45,7 @@ Voici une vue d'ensemble de cette structure :
 
 une base pour après ajouter les autres fonctionnalités.
 
-## fonctionnalités ajoutées :
+### fonctionnalités ajoutées :
 
 placement et explosion des bomb
 destruction des briques dans l'onde
