@@ -2,15 +2,16 @@ import { pattern, pattern1, pattern2, pattern3, pattern4, pattern5 } from "./pat
 
 const patterns = [pattern, pattern1, pattern2, pattern3, pattern4, pattern5]
 const randomIndex = Math.floor(Math.random() * patterns.length);
-const model = patterns[randomIndex];
-
+// const model = patterns[randomIndex];
+const model= pattern5
 const gridSize = 15;
 const grid = document.getElementById('grid');
 const cells = [];
 
 // initialisation des coordonnées du joueur principal
 const initPlayerPos = { row: 1, col: 1 };
-
+// delai avant explosion bomb
+const bombDelay = 2000;
 
 
 // Initialisation grid de base
@@ -87,7 +88,6 @@ document.addEventListener('keydown', (event) => {
 
 
 /* placement bomb  */
-const bombDelay = 2000; // Délai en millisecondes avant l'explosion de la bombe
 
 function placeBomb() {
     const bombPos = { row: initPlayerPos.row, col: initPlayerPos.col };
@@ -97,5 +97,12 @@ function placeBomb() {
 
     // Ajouter la classe 'bomb' à la cellule
     bombCell.classList.add('bomb');
+    setTimeout(()=> explodeBomb(bombPos), bombDelay)
 }
 
+function explodeBomb(bombPos){
+    const bombCell = cells[bombPos.row * gridSize + bombPos.col];
+    bombCell.classList.remove('bomb')
+
+    // logique d'explosion
+}
