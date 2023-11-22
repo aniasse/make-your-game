@@ -4,14 +4,14 @@ body{
     background-image: url("ressources/wallpaper.jpg");
     background-size: cover; /* Pour ajuster la taille de l'image à l'écran */
     background-repeat: no-repeat; 
-    background-position: center center;
+    background-position: center;
+    background-attachment: fixed;
     
 }
 
-
+/*
 @media screen and (max-width: 768px) {
     body {
-        /* Par exemple, pour les appareils de largeur maximale de 768px */
-        background-size: contain; /* Pour que l'image soit entièrement visible sans être coupée */
+        background-size: contain; 
     }
-}
+}*/
