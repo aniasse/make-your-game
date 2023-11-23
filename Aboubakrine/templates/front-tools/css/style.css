@@ -9,7 +9,7 @@ body{
     filter: blur(25);
 }
 .grid {
-    position: fixed;
+    position: absolute;
     top: 25%;
     left: 35%;
     width: 30%;
@@ -53,6 +53,18 @@ body{
     background-image: url('../images/boom.png');
     background-size: contain;
 }
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5px, 5px); }
+    50% { transform: translate(5px, -5px); }
+    75% { transform: translate(-5px, 5px); }
+    100% { transform: translate(0, 0); }
+}
+
+.player.touch {
+    animation: shake 0.5s ease-in-out 4;
+}
+
 @keyframes heartbeat {
     0% {
       transform: scale(1);
