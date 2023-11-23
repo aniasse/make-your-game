@@ -2,6 +2,7 @@ import { pattern, pattern1, pattern2, pattern3, pattern4, pattern5 } from "./pat
 
 const patterns = [pattern, pattern1, pattern2, pattern3, pattern4, pattern5]
 const randomIndex = Math.floor(Math.random() * patterns.length);
+let lives = 3
 // const model = patterns[randomIndex];
 const model= pattern5
 const gridSize = 15;
@@ -122,6 +123,16 @@ function propagateExplosion(row, col) {
 
     setTimeout(() => {
         currentCell.classList.remove('onde');
+        if (currentCell.classList.contains('player')) {
+            lives--;
+            console.log(lives);
+            console.log('you lose One live point');
+        
+            if (lives === 0) {
+                console.log('Game Over');
+            }
+        }
+        
     }, 1000);
 
    // destruction brick
@@ -132,5 +143,6 @@ function propagateExplosion(row, col) {
 
     if (model[row][col] === 'V') {
         currentCell.classList.remove('brick');
+        currentCell.classList.add('empty')
     }
 }
