@@ -1,20 +1,6 @@
-import { pattern, pattern1, pattern2, pattern3, pattern4, pattern5 } from "./pattern.js";
-
-const patterns = [pattern, pattern1, pattern2, pattern3, pattern4, pattern5]
-const randomIndex = Math.floor(Math.random() * patterns.length);
+import { model, gridSize, grid, initPlayerPos, bombDelay, cells  } from "./utils.mjs";
 let lives = 3
-// const model = patterns[randomIndex];
-const model= pattern5
-const gridSize = 15;
-const grid = document.getElementById('grid');
-const cells = [];
-
-// initialisation des coordonnées du joueur principal
-const initPlayerPos = { row: 1, col: 1 };
-// delai avant explosion bomb
-const bombDelay = 2000;
-
-
+                                          
 // Initialisation grid de base
 for (let i = 0; i < gridSize; i++) {
     for (let j = 0; j < gridSize; j++) {
@@ -90,28 +76,35 @@ document.addEventListener('keydown', (event) => {
 
 /* placement bomb  */
 
-function placeBomb() {
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function placeBomb() {
     const bombPos = { row: initPlayerPos.row, col: initPlayerPos.col };
-
-    // Récupérer la cellule à la position de la bombe
     const bombCell = cells[bombPos.row * gridSize + bombPos.col];
-
-    // Ajouter la classe 'bomb' à la cellule
+    
     bombCell.classList.add('bomb');
-    setTimeout(()=> explodeBomb(bombPos), bombDelay)
+    
+    await delay(bombDelay);
+    explodeBomb(bombPos);
 }
 
-function explodeBomb(bombPos){
+async function explodeBomb(bombPos) {
     const bombCell = cells[bombPos.row * gridSize + bombPos.col];
-    bombCell.classList.remove('bomb')
+    bombCell.classList.remove('bomb');
 
-   // determination onde d'explosion
     propagateExplosion(bombPos.row, bombPos.col);
-    propagateExplosion(bombPos.row - 1 , bombPos.col);
-    propagateExplosion(bombPos.row + 1 , bombPos.col);
-    propagateExplosion(bombPos.row , bombPos.col - 1);
-    propagateExplosion(bombPos.row , bombPos.col + 1);
+    await delay(100);
+    propagateExplosion(bombPos.row - 1, bombPos.col);
+    await delay(100);
+    propagateExplosion(bombPos.row + 1, bombPos.col);
+    await delay(100);
+    propagateExplosion(bombPos.row, bombPos.col - 1);
+    await delay(100);
+    propagateExplosion(bombPos.row, bombPos.col + 1);
 }
+
 
  // logique d'explosion
 
