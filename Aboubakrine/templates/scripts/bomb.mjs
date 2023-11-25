@@ -1,4 +1,6 @@
+import { model } from "./utils.mjs"
 
+let lives = 3
 export function placeBomb(initPlayerPos, cells, gridSize, bombDelay) {
     const bombPos = { row: initPlayerPos.row, col: initPlayerPos.col };
     const bombCell = cells[bombPos.row * gridSize + bombPos.col];

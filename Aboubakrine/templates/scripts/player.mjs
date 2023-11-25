@@ -1,4 +1,5 @@
 import { placeBomb } from "./bomb.mjs";
+import { initPlayerPos } from "./utils.mjs";
 
 export function movePlayer(event, initPlayerPos, gridSize, model, cells) {
     const playerPos = document.querySelector('.player');
