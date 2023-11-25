@@ -35,10 +35,12 @@ body{
 .empty {
     background-color: green;
 }
-.player.bomb,
-.player{
-    background-image: url('../images/Bomberman.png');
+.player.bomb {
+    transition: all 0.1s ease; /* Ajoutez une transition fluide de 0.2 secondes */
     background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('../images/right-3.png');
+    background-position: center;
 }
 .bomb {
     background-image: url('../images/bomb.png');
@@ -76,3 +78,38 @@ body{
       transform: scale(0.5);
     }
   }
+
+
+  /* Ajoutez ces classes pour les différentes positions des jambes */
+.player {
+    transition: top 0.2s ease, left 0.2s ease;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('../images/right-3.png');
+}
+
+.player-left {
+    background-image: url('../images/left-1.png');
+}
+
+.player-right {
+background-image: url('../images/right-1.png');
+}
+
+.player-front-left {
+background-image: url('../images/front-1.png');
+}
+
+.player-front-right {
+background-image: url('../images/front-2.png');
+}
+
+.player-back-left {
+background-image: url('../images/back-1.png');
+}
+
+.player-back-right {
+background-image: url('../images/back-2.png');
+}
+

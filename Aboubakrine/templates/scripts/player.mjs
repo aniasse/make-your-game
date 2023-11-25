@@ -1,5 +1,6 @@
 import { placeBomb } from "./bomb.mjs";
-import { initPlayerPos } from "./utils.mjs";
+
+let legState = 'left';
 
 export function movePlayer(event, initPlayerPos, gridSize, model, cells) {
     const playerPos = document.querySelector('.player');
@@ -39,6 +40,12 @@ export function movePlayer(event, initPlayerPos, gridSize, model, cells) {
         initPlayerPos.row = newRow;
         initPlayerPos.col = newCol;
         const newPlayerPos = cells[newRow * gridSize + newCol];
-        newPlayerPos.classList.add('player');
+        newPlayerPos.classList.toggle('player','player-left', newRow === initPlayerPos.row && newCol < initPlayerPos.col);
+        newPlayerPos.classList.toggle('player','player-right', newRow === initPlayerPos.row && newCol > initPlayerPos.col);
+        newPlayerPos.classList.toggle('player-front-left', newRow > initPlayerPos.row);
+        newPlayerPos.classList.toggle('player-front-right', newRow > initPlayerPos.row);
+        newPlayerPos.classList.toggle('player-back-left', newRow < initPlayerPos.row);
+        newPlayerPos.classList.toggle('player-back-right', newRow < initPlayerPos.row);
+    
     }
 }
