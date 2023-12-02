@@ -39,7 +39,7 @@ body{
     transition: all 0.1s ease;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url('../images/Bomberman.png');
+    /* background-image: url('../images/right-3.png'); */
     background-position: center;
 }
 .player {
@@ -50,7 +50,7 @@ body{
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url('../images/Bomberman.png');
+    /* background-image: url('../images/right-3.png'); */
 }
 
 .bomb {

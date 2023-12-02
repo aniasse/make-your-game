@@ -1,15 +1,13 @@
-// script.js
-
-import { model, gridSize, grid, initPlayerPos, bombDelay, cells } from "../utils.mjs";
+import { model, gridSize, grid, initPlayerPos, bombDelay, cells } from "./constants.js";
 
 let lives = 3;
 const playerDiv = document.createElement('div');
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
 playerDiv.dataset.col = initPlayerPos.col;
-// playerDiv.style.backgroundImage = "url('Bomberman.png')";
 
 // Append the player div to the grid
+playerDiv.style.backgroundImage = "url('../images/right-3.png')";
 grid.appendChild(playerDiv);
 // Initialisation grid de base
 for (let i = 0; i < gridSize; i++) {
