@@ -1,5 +1,5 @@
 import { model, gridSize, grid, initPlayerPos, bombDelay, cells } from "./constants.js";
-
+var path = "/templates/front-tools/images/right-3.png"
 let lives = 3;
 const playerDiv = document.createElement('div');
 playerDiv.classList.add('player');
@@ -7,14 +7,18 @@ playerDiv.dataset.row = initPlayerPos.row;
 playerDiv.dataset.col = initPlayerPos.col;
 
 // Append the player div to the grid
-playerDiv.style.backgroundImage = "url('../images/right-3.png')";
-grid.appendChild(playerDiv);
+
+playerDiv.style.backgroundImage = `url(${path})`;
+
 // Initialisation grid de base
 for (let i = 0; i < gridSize; i++) {
     for (let j = 0; j < gridSize; j++) {
         const cell = document.createElement('div');
         cell.dataset.row = i;
         cell.dataset.col = j;
+        if (i === 1 && j === 1){
+            cell.appendChild(playerDiv);
+        }
 
         // placement murs player et cellules vides
         if (model[i][j] === "X") {
