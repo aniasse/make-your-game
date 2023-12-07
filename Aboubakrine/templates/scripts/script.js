@@ -1,6 +1,7 @@
-import { model, gridSize, grid, initPlayerPos, bombDelay, cells } from "./constants.js";
-var path = "/templates/front-tools/images/right-3.png"
+import { model, gridSize, grid, initPlayerPos, bombDelay, cells, path } from "./constants.js";
+
 let lives = 3;
+let leg = 'right';
 const playerDiv = document.createElement('div');
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
@@ -8,7 +9,7 @@ playerDiv.dataset.col = initPlayerPos.col;
 
 // Append the player div to the grid
 
-playerDiv.style.backgroundImage = `url(${path})`;
+playerDiv.style.backgroundImage = `url(${path}right-3.png)`;
 
 // Initialisation grid de base
 for (let i = 0; i < gridSize; i++) {
@@ -16,7 +17,7 @@ for (let i = 0; i < gridSize; i++) {
         const cell = document.createElement('div');
         cell.dataset.row = i;
         cell.dataset.col = j;
-        if (i === 1 && j === 1){
+        if (i === 1 && j === 1) {
             cell.appendChild(playerDiv);
         }
 
@@ -46,15 +47,23 @@ document.addEventListener('keydown', (event) => {
 
     switch (event.key) {
         case 'ArrowUp':
+            playerDiv.style.backgroundImage = `url(${path}back-${leg === 'right' ? '1' : '2'}.png)`;
+            leg = leg === 'right' ? 'left' : 'right';
             newRow--;
             break;
         case 'ArrowDown':
+            playerDiv.style.backgroundImage = `url(${path}front-${leg === 'right' ? '1' : '2'}.png)`;
+            leg = leg === 'right' ? 'left' : 'right';
             newRow++;
             break;
         case 'ArrowLeft':
+            playerDiv.style.backgroundImage = `url(${path}left-${leg === 'right' ? '1' : '2'}.png)`;
+            leg = leg === 'right' ? 'left' : 'right';
             newCol--;
             break;
         case 'ArrowRight':
+            playerDiv.style.backgroundImage = `url(${path}right-${leg === 'right' ? '1' : '2'}.png)`;
+            leg = leg === 'right' ? 'left' : 'right';
             newCol++;
             break;
         case ' ':
@@ -67,8 +76,13 @@ document.addEventListener('keydown', (event) => {
     }
 
     // Vérifiez si les nouvelles coordonnées sont dans les limites de la grille
-    if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize && model[newRow][newCol] !== "X" && model[newRow][newCol] !== "B") {
-        // Déplacez le joueur vers la nouvelle position
+    if (
+        newRow >= 0 && newRow < gridSize && 
+        newCol >= 0 && newCol < gridSize && 
+        model[newRow][newCol] !== "X" && 
+        model[newRow][newCol] !== "B"
+        ){
+        playerDiv.style.transition = "top 0.2s ease, left 0.2s ease";
         playerDiv.dataset.row = newRow;
         playerDiv.dataset.col = newCol;
         playerDiv.style.top = `${newRow * 40}px`;

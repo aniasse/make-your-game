@@ -39,11 +39,11 @@ body{
     transition: all 0.1s ease;
     background-size: contain;
     background-repeat: no-repeat;
-    /* background-image: url('../images/right-3.png'); */
+    background-image: url('../images/right-3.png');
     background-position: center;
 }
 .player {
-    transition: top 0.2s ease, left 0.2s ease;
+    transition: top 0.2s ease, left 0.2s ease, transform 0.2s ease;
     width: 40px;
     height: 40px;
     position: absolute;
@@ -84,29 +84,3 @@ body{
       transform: scale(0.5);
     }
   }
-
-
-.player-left {
-    background-image: url('../images/left-1.png');
-}
-
-.player-right {
-background-image: url('../images/right-1.png');
-}
-
-.player-front-left {
-background-image: url('../images/front-1.png');
-}
-
-.player-front-right {
-background-image: url('../images/front-2.png');
-}
-
-.player-back-left {
-background-image: url('../images/back-1.png');
-}
-
-.player-back-right {
-background-image: url('../images/back-2.png');
-}
-
