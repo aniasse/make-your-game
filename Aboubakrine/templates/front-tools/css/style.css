@@ -7,6 +7,9 @@
 body{
     background: #f0f2f5;
     filter: blur(25);
+    
+    font-size: 30pt;
+    font-family: 'Press Start 2p';
 }
 .grid {
     position: absolute;
@@ -75,12 +78,53 @@ body{
 
 @keyframes heartbeat {
     0% {
-      transform: scale(0.5);
+        transform: scale(0.5);
     }
     50% {
-      transform: scale(1);
+        transform: scale(1);
     }
     100% {
-      transform: scale(0.5);
+        transform: scale(0.5);
     }
-  }
+}
+
+
+#pauseContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: solid red;
+} 
+
+
+.start-btn{
+    text-align: center;
+    display: table;
+    margin:5px;
+    font-weight: bold;
+    padding: 10px 0 10px 10px ;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -o-border-radius: 7px;
+    border-radius: 7px;
+    box-shadow: 0 .2em gray; 
+    cursor: pointer;
+    margin-top: 20px;
+    
+}
+.video-game-button:active, .start-btn:active {
+    box-shadow: none;
+    position: relative;
+    top: .2em;
+}
+
+.menu-overlay{
+    backdrop-filter: blur(3px);
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+}

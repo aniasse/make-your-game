@@ -150,3 +150,44 @@ function propagateExplosion(row, col) {
         currentCell.classList.add('empty');
     }
 }
+
+
+
+/// pause
+
+function work(){
+    function ResumeGame(){
+        alert("RESUME")
+    }
+    function RestartGame(){
+        alert ("RESTART")
+    }
+    function ExitFame(){
+        alert("QUIT GAME")
+    }
+    const CONTINUE = document.getElementById("CONTINUE")
+    const RESTART = document.getElementById("RESTART")
+    const EXIT = document.getElementById("EXIT")
+    CONTINUE.addEventListener("click", ResumeGame)
+    RESTART.addEventListener("click", RestartGame)
+    EXIT.addEventListener("click", ExitFame)
+}
+
+document.addEventListener('DOMContentLoaded',work)
+var pausemenu = false
+document.addEventListener(
+    'keydown', 
+    (event)=>{
+        if (event.key=='Escape'){
+            if (pausemenu){
+                document.getElementById("pauseContainer").style.zIndex = "0";
+                pausemenu = false
+                document.body.classList.toggle("menu-overlay")
+
+            }else{
+                document.getElementById("pauseContainer").style.zIndex = "2";
+                pausemenu=true
+                document.body.classList.toggle("menu-overlay")
+            }
+        }
+    })
