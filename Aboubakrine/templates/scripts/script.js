@@ -2,6 +2,7 @@ import { model, gridSize, grid, initPlayerPos, bombDelay, cells, path } from "./
 
 let lives = 3;
 let leg = 'right';
+var pausemenu = false
 const playerDiv = document.createElement('div');
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
@@ -40,53 +41,57 @@ for (let i = 0; i < gridSize; i++) {
 
 // deplacement joueur principal
 document.addEventListener('keydown', (event) => {
-    const playerPos = playerDiv;
+    if (!pausemenu) {
 
-    let newRow = parseInt(playerDiv.dataset.row);
-    let newCol = parseInt(playerDiv.dataset.col);
 
-    switch (event.key) {
-        case 'ArrowUp':
-            playerDiv.style.backgroundImage = `url(${path}back-${leg === 'right' ? '1' : '2'}.png)`;
-            leg = leg === 'right' ? 'left' : 'right';
-            newRow--;
-            break;
-        case 'ArrowDown':
-            playerDiv.style.backgroundImage = `url(${path}front-${leg === 'right' ? '1' : '2'}.png)`;
-            leg = leg === 'right' ? 'left' : 'right';
-            newRow++;
-            break;
-        case 'ArrowLeft':
-            playerDiv.style.backgroundImage = `url(${path}left-${leg === 'right' ? '1' : '2'}.png)`;
-            leg = leg === 'right' ? 'left' : 'right';
-            newCol--;
-            break;
-        case 'ArrowRight':
-            playerDiv.style.backgroundImage = `url(${path}right-${leg === 'right' ? '1' : '2'}.png)`;
-            leg = leg === 'right' ? 'left' : 'right';
-            newCol++;
-            break;
-        case ' ':
-        case 'Spacebar':
-            placeBomb();
-            console.log('placement bomb');
-            return;
-        default:
-            return;
-    }
+        const playerPos = playerDiv;
 
-    // Vérifiez si les nouvelles coordonnées sont dans les limites de la grille
-    if (
-        newRow >= 0 && newRow < gridSize && 
-        newCol >= 0 && newCol < gridSize && 
-        model[newRow][newCol] !== "X" && 
-        model[newRow][newCol] !== "B"
-        ){
-        playerDiv.style.transition = "top 0.2s ease, left 0.2s ease";
-        playerDiv.dataset.row = newRow;
-        playerDiv.dataset.col = newCol;
-        playerDiv.style.top = `${newRow * 40}px`;
-        playerDiv.style.left = `${newCol * 40}px`;
+        let newRow = parseInt(playerDiv.dataset.row);
+        let newCol = parseInt(playerDiv.dataset.col);
+
+        switch (event.key) {
+            case 'ArrowUp':
+                playerDiv.style.backgroundImage = `url(${path}back-${leg === 'right' ? '1' : '2'}.png)`;
+                leg = leg === 'right' ? 'left' : 'right';
+                newRow--;
+                break;
+            case 'ArrowDown':
+                playerDiv.style.backgroundImage = `url(${path}front-${leg === 'right' ? '1' : '2'}.png)`;
+                leg = leg === 'right' ? 'left' : 'right';
+                newRow++;
+                break;
+            case 'ArrowLeft':
+                playerDiv.style.backgroundImage = `url(${path}left-${leg === 'right' ? '1' : '2'}.png)`;
+                leg = leg === 'right' ? 'left' : 'right';
+                newCol--;
+                break;
+            case 'ArrowRight':
+                playerDiv.style.backgroundImage = `url(${path}right-${leg === 'right' ? '1' : '2'}.png)`;
+                leg = leg === 'right' ? 'left' : 'right';
+                newCol++;
+                break;
+            case ' ':
+            case 'Spacebar':
+                placeBomb();
+                console.log('placement bomb');
+                return;
+            default:
+                return;
+        }
+
+        // Vérifiez si les nouvelles coordonnées sont dans les limites de la grille
+        if (
+            newRow >= 0 && newRow < gridSize &&
+            newCol >= 0 && newCol < gridSize &&
+            model[newRow][newCol] !== "X" &&
+            model[newRow][newCol] !== "B"
+        ) {
+            playerDiv.style.transition = "top 0.2s ease, left 0.2s ease";
+            playerDiv.dataset.row = newRow;
+            playerDiv.dataset.col = newCol;
+            playerDiv.style.top = `${newRow * 40}px`;
+            playerDiv.style.left = `${newCol * 40}px`;
+        }
     }
 });
 
@@ -155,14 +160,14 @@ function propagateExplosion(row, col) {
 
 /// pause
 
-function work(){
-    function ResumeGame(){
+function work() {
+    function ResumeGame() {
         alert("RESUME")
     }
-    function RestartGame(){
-        alert ("RESTART")
+    function RestartGame() {
+        alert("RESTART")
     }
-    function ExitFame(){
+    function ExitFame() {
         alert("QUIT GAME")
     }
     const CONTINUE = document.getElementById("CONTINUE")
@@ -173,21 +178,21 @@ function work(){
     EXIT.addEventListener("click", ExitFame)
 }
 
-document.addEventListener('DOMContentLoaded',work)
-var pausemenu = false
+document.addEventListener('DOMContentLoaded', work)
+
 document.addEventListener(
-    'keydown', 
-    (event)=>{
-        if (event.key=='Escape'){
-            if (pausemenu){
+    'keydown',
+    (event) => {
+        if (event.key == 'Escape') {
+            if (pausemenu) {
                 document.getElementById("pauseContainer").style.zIndex = "0";
                 pausemenu = false
-                document.body.classList.toggle("menu-overlay")
+                document.body.classList.remove("menu-overlay");
 
-            }else{
+            } else {
                 document.getElementById("pauseContainer").style.zIndex = "2";
-                pausemenu=true
-                document.body.classList.toggle("menu-overlay")
+                pausemenu = true
+                document.body.classList.add("menu-overlay");
             }
         }
     })
