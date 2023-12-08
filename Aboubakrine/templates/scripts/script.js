@@ -1,8 +1,8 @@
-import { model, gridSize, grid, initPlayerPos, bombDelay, cells, path } from "./constants.js";
+import { model, gridSize, grid, initPlayerPos, bombDelay, cells, path} from "./constants.js";
 
 let lives = 3;
 let leg = 'right';
-var pausemenu = false
+var pausemenu = false;
 const playerDiv = document.createElement('div');
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
