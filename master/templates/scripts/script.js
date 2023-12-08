@@ -80,13 +80,15 @@ function movePlayer(direction) {
 }
 
 function isValidMove(row, col) {
+    const isBombCell = cells[row * gridSize + col].classList.contains('bomb');
     return (
         row >= 0 &&
         row < gridSize &&
         col >= 0 &&
         col < gridSize &&
         model[row][col] !== "X" &&
-        model[row][col] !== "B"
+        model[row][col] !== "B" &&
+        !isBombCell
     );
 }
 
