@@ -1,5 +1,8 @@
 import { model, gridSize, grid, initPlayerPos, bombDelay, cells, path } from "./constants.js";
 
+let score = 0;
+let timerMinutes = 5;
+let timerSeconds = 0;
 let lives = 3;
 console.log('you have', lives, 'life points');
 let leg = 'right';
@@ -35,6 +38,41 @@ for (let i = 0; i < gridSize; i++) {
 }
 
 document.addEventListener('keydown', handleKeyPress);
+
+function animate() {
+    requestAnimationFrame(animate);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    updateTimerUI();
+    animate();
+
+    setInterval(() => {
+        if (!pausemenu){
+            if (timerMinutes > 0 || timerSeconds > 0) {
+                if (timerSeconds === 0) {
+                    timerMinutes--;
+                    timerSeconds = 59;
+                } else {
+                    timerSeconds--;
+                }
+                updateTimerUI();
+            } else {
+                console.log('Game Over - Time Up');
+                clearInterval(intervalId);
+            }
+        }
+    }, 1000);
+});
+
+function updateTimerUI() {
+    timerElement.textContent = `${timerMinutes}:${timerSeconds < 10 ? '0' : ''}${timerSeconds}`;
+}
+
+
+
+requestAnimationFrame(animate);
 
 async function handleKeyPress(event) {
     if (pausemenu) return;
@@ -150,6 +188,7 @@ function propagateExplosion(row, col) {
         // Destruction de la brique
         if (model[row][col] === 'B') {
             model[row][col] = 'V';
+            incrementScore();
         }
 
         if (model[row][col] === 'V') {
@@ -159,16 +198,33 @@ function propagateExplosion(row, col) {
     }, 1000);
 }
 
+
+function incrementScore() {
+    score += 10; 
+    scoreElement.textContent = score;
+}
+
 function handlePlayerCollision() {
     lives--;
     console.log('You lose one live point');
     console.log('you have', lives, 'life points')
+    updateLivesUI();
     if (lives === 0) {
         console.log('Game Over');
     }
 }
 
+function updateLivesUI() {
+    // Supprime toutes les vies actuelles du DOM.
+    livesContainer.innerHTML = '';
 
+    // Ajoute le nombre actuel de vies au DOM.
+    for (let i = 0; i < lives; i++) {
+        const heartIcon = document.createElement('span');
+        heartIcon.innerHTML = '&hearts;';
+        livesContainer.appendChild(heartIcon);
+    }
+}
 
 
 /// pause
@@ -211,3 +267,12 @@ document.addEventListener(
             }
         }
     })
+
+const scoreElement = document.querySelector('.score span');
+const livesContainer = document.querySelector('.lives');
+const timerElement = document.querySelector('.timer span');
+
+// Mettez à jour le DOM lors de l'initialisation du jeu.
+scoreElement.textContent = score;
+updateLivesUI();
+updateTimerUI();
