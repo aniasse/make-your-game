@@ -96,7 +96,7 @@ body{
     border: solid red;
     padding: 30px;
     border-radius: 10px;
-   
+    display: none;
 } 
 
 
@@ -130,6 +130,9 @@ body.menu-overlay {
     position: relative;
     .grid{
         position: relative;
+    }
+    #pauseContainer{
+        display: block;
     }
 }
 body.menu-overlay::before {
