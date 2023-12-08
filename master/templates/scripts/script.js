@@ -60,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateTimerUI();
             } else {
                 console.log('Game Over - Time Up');
-                clearInterval(intervalId);
             }
         }
     }, 1000);
