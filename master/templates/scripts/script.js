@@ -7,7 +7,8 @@ let lives = 3;
 console.log('you have', lives, 'life points');
 let leg = 'right';
 let pausemenu = false;
-
+let canPose = true;
+let bombExploiding = false;
 const playerDiv = document.createElement('div');
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
@@ -142,12 +143,19 @@ function delay(ms) {
 }
 
 async function placeBomb() {
-    const bombPos = { row: parseInt(playerDiv.dataset.row), col: parseInt(playerDiv.dataset.col) };
-    const bombCell = cells[bombPos.row * gridSize + bombPos.col];
-    bombCell.classList.add('bomb');
-
-    await delay(bombDelay);
-    explodeBomb(bombPos);
+    if (canPose && !bombExploiding){
+        const bombPos = { row: parseInt(playerDiv.dataset.row), col: parseInt(playerDiv.dataset.col) };
+        const bombCell = cells[bombPos.row * gridSize + bombPos.col];
+        bombCell.classList.add('bomb');
+        canPose = false;
+        bombExploiding = true;
+        await delay(bombDelay);
+        explodeBomb(bombPos);
+        await delay(1000)
+        bombExploiding = false
+    }
+    await delay(bombDelay )
+    canPose = true;
 }
 
 async function explodeBomb(bombPos) {
