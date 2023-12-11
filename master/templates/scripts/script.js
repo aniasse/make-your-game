@@ -4,7 +4,6 @@ let score = 0;
 let timerMinutes = 5;
 let timerSeconds = 0;
 let lives = 3;
-console.log('you have', lives, 'life points');
 let leg = 'right';
 let pausemenu = false;
 let canPose = true;
@@ -243,10 +242,10 @@ function work() {
         document.body.classList.remove("menu-overlay");
     }
     function RestartGame() {
-        alert("RESTART")
+        window.location.reload()
     }
     function ExitFame() {
-        alert("QUIT GAME")
+        window.location.href = "homepage.html"
     }
     const CONTINUE = document.getElementById("CONTINUE")
     const RESTART = document.getElementById("RESTART")
