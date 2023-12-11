@@ -65,6 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000);
 });
 
+function GameOver(){
+    
+}
+
 function updateTimerUI() {
     timerElement.textContent = `${timerMinutes}:${timerSeconds < 10 ? '0' : ''}${timerSeconds}`;
 }
