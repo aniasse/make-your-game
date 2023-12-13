@@ -74,8 +74,4 @@ function propagateExplosion(row, col) {
         }
     }, 1000);
 }
-
-
-
-
 export { placeBomb } 

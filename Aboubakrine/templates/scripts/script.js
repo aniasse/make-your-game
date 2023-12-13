@@ -1,7 +1,9 @@
 import { placeBomb } from "./bomb.js";
-import { model, gridSize, grid, initPlayerPos, bombDelay, cells, path, playerDiv} from "./constants.js";
+import { model, gridSize, grid, initPlayerPos, cells, path, playerDiv, EndScore } from "./constants.js";
 
+const gameOver = document.querySelector(".App")
 let score = 0
+
 
 let lives = 3;
 let timerMinutes = 5;
@@ -49,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animate();
 
     setInterval(() => {
-        if (!pausemenu){
+        if (!pausemenu) {
             if (timerMinutes > 0 || timerSeconds > 0) {
                 if (timerSeconds === 0) {
                     timerMinutes--;
@@ -60,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateTimerUI();
             } else {
                 console.log('Game Over - Time Up');
+                console.log(EndScore)
+                EndScore.textContent = score
+                gameOver.classList.add('over')
             }
         }
     }, 1000);
@@ -141,7 +146,7 @@ function movePlayerTo(newRow, newCol) {
 
 
 export function incrementScore() {
-    score += 10; 
+    score += 10;
     scoreElement.textContent = score;
 }
 
@@ -152,6 +157,9 @@ export function handlePlayerCollision() {
     updateLivesUI();
     if (lives === 0) {
         console.log('Game Over');
+        EndScore.textContent = score
+        gameOver.classList.add('over')
+        body.classList.add('over')
     }
 }
 
@@ -216,5 +224,6 @@ const timerElement = document.querySelector('.timer span');
 
 // Mettez à jour le DOM lors de l'initialisation du jeu.
 scoreElement.textContent = score;
+
 updateLivesUI();
 updateTimerUI();
