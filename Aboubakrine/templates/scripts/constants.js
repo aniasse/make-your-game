@@ -8,7 +8,7 @@ export const model= pattern5
 export const gridSize = 15;
 export const grid = document.getElementById('grid');
 export const cells = [];
-
+export const playerDiv = document.createElement('div');
 // initialisation des coordonnées du joueur principal
 export const initPlayerPos = { row: 1, col: 1 };
 // delai avant explosion bomb

@@ -1,14 +1,14 @@
-import { model, gridSize, grid, initPlayerPos, bombDelay, cells, path } from "./constants.js";
+import { placeBomb } from "./bomb.js";
+import { model, gridSize, grid, initPlayerPos, bombDelay, cells, path, playerDiv} from "./constants.js";
 
-let score = 0;
+let score = 0
+
+let lives = 3;
 let timerMinutes = 5;
 let timerSeconds = 0;
-let lives = 3;
 let leg = 'right';
 let pausemenu = false;
-let canPose = true;
-let bombExploiding = false;
-const playerDiv = document.createElement('div');
+
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
 playerDiv.dataset.col = initPlayerPos.col;
@@ -137,80 +137,15 @@ function movePlayerTo(newRow, newCol) {
     playerDiv.style.left = `${newCol * 40}px`;
 }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function placeBomb() {
-    if (canPose && !bombExploiding){
-        const bombPos = { row: parseInt(playerDiv.dataset.row), col: parseInt(playerDiv.dataset.col) };
-        const bombCell = cells[bombPos.row * gridSize + bombPos.col];
-        bombCell.classList.add('bomb');
-        canPose = false;
-        bombExploiding = true;
-        await delay(bombDelay);
-        explodeBomb(bombPos);
-        await delay(1000)
-        bombExploiding = false
-    }
-    await delay(bombDelay )
-    canPose = true;
-}
-
-async function explodeBomb(bombPos) {
-    const bombCell = cells[bombPos.row * gridSize + bombPos.col];
-    bombCell.classList.remove('bomb');
-
-    propagateExplosion(bombPos.row, bombPos.col);
-    await delay(100);
-    propagateExplosion(bombPos.row - 1, bombPos.col);
-    await delay(100);
-    propagateExplosion(bombPos.row + 1, bombPos.col);
-    await delay(100);
-    propagateExplosion(bombPos.row, bombPos.col - 1);
-    await delay(100);
-    propagateExplosion(bombPos.row, bombPos.col + 1);
-}
-
-// logique d'explosion
-function propagateExplosion(row, col) {
-    const currentCell = cells[row * gridSize + col];
-
-    if (model[row][col] !== 'X') {
-        currentCell.classList.add('onde');
-    }
-
-    setTimeout(() => {
-        currentCell.classList.remove('onde');
-
-        // Vérifie la collision avec le joueur
-        const playerRow = parseInt(playerDiv.dataset.row);
-        const playerCol = parseInt(playerDiv.dataset.col);
-
-        if (row === playerRow && col === playerCol) {
-            handlePlayerCollision();
-        }
-
-        // Destruction de la brique
-        if (model[row][col] === 'B') {
-            model[row][col] = 'V';
-            incrementScore();
-        }
-
-        if (model[row][col] === 'V') {
-            currentCell.classList.remove('brick');
-            currentCell.classList.add('empty');
-        }
-    }, 1000);
-}
 
 
-function incrementScore() {
+
+export function incrementScore() {
     score += 10; 
     scoreElement.textContent = score;
 }
 
-function handlePlayerCollision() {
+export function handlePlayerCollision() {
     lives--;
     console.log('You lose one live point');
     console.log('you have', lives, 'life points')
@@ -219,6 +154,7 @@ function handlePlayerCollision() {
         console.log('Game Over');
     }
 }
+
 
 function updateLivesUI() {
     // Supprime toutes les vies actuelles du DOM.
