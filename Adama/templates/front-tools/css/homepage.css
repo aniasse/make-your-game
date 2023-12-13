@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url("../images/wallpaper.jpg");
+    background-size: cover; /* Pour ajuster la taille de l'image à l'écran */
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    height: 100vh;
+}
+
+h1{
+    color: green;
+    position: relative;
+    margin: auto;
+    cursor: pointer;
+}
+
+/*
+@media screen and (max-width: 768px) {
+    body {
+        background-size: contain; 
+    }
+}*/
