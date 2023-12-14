@@ -1,7 +1,6 @@
 import { placeBomb } from "./bomb.js";
-import { model, gridSize, grid, initPlayerPos, cells, path, playerDiv, EndScore } from "./constants.js";
+import { model, gridSize, grid, initPlayerPos, cells, path, playerDiv, EndScore, gameOver, gameActivity } from "./constants.js";
 
-const gameOver = document.querySelector(".App")
 let score = 0
 
 
@@ -62,9 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateTimerUI();
             } else {
                 console.log('Game Over - Time Up');
-                console.log(EndScore)
-                EndScore.textContent = score
-                gameOver.classList.add('over')
+                gameEnd()
             }
         }
     }, 1000);
@@ -157,9 +154,7 @@ export function handlePlayerCollision() {
     updateLivesUI();
     if (lives === 0) {
         console.log('Game Over');
-        EndScore.textContent = score
-        gameOver.classList.add('over')
-        body.classList.add('over')
+        gameEnd()
     }
 }
 
@@ -227,3 +222,10 @@ scoreElement.textContent = score;
 
 updateLivesUI();
 updateTimerUI();
+
+function gameEnd() {
+    EndScore.textContent = score
+    gameOver.classList.add('over')
+    grid.style.display = 'none'
+    gameActivity.style.display = 'none'
+}

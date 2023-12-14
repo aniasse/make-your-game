@@ -13,9 +13,6 @@
   background-color: black; 
   overflow: hidden;
   height: 100vh;
-  .stats{
-    display: none;
-  }
   .grid{
     display: none;
   }
