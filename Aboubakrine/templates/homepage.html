@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-    <link rel="stylesheet" href="front-tools/css/homepage.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <link rel="stylesheet" href="front-tools/css/homepage.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="front-tools/images/favicon.png" type="image/x-icon">
 </head>
+
 <body>
-    <h1>START GAME</h1>
-    <script>
-        function RedirectionJavascript(){
-          document.location.href="index.html"; 
-        }
-        let startGame = document.querySelector('h1')
-        startGame.addEventListener("click", RedirectionJavascript)
-        </script>
+  <div class="hero-section">
+    <p>Unleash your bomb-dropping brilliance and let the explosions of awesomeness begin!</p>
+  </div>
+  <h1>START GAME</h1>
+  <audio id="clicSound" src="assets/sounds/click.mp3" type="audio/mp3"></audio>
+  <script>
+
+    function RedirectionJavascript() {
+      document.location.href = "index.html";
+    }
+
+    let startGame = document.querySelector('h1');
+
+    startGame.addEventListener("click", function () {
+      document.getElementById('clicSound').play();
+      RedirectionJavascript();
+    });
+    
+  </script>
+
 </body>
+
 </html>
