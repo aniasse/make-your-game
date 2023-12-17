@@ -1,14 +1,10 @@
-import { placeBomb } from "./bomb.js";
+import { propagateExplosion } from "./bomb.js";
 import { model, gridSize, grid, initPlayerPos, cells, path, playerDiv, EndScore, gameOver, gameActivity } from "./constants.js";
+import { delay } from "./utils.js";
 
-let score = 0
+let score = 0, lives = 3, timerMinutes = 5, timerSeconds = 0, leg = 'right', pausemenu = false,
+    bombExploiding = false, canPose = true, Bombs = 1, bombDelay = 2000;
 
-
-let lives = 3;
-let timerMinutes = 5;
-let timerSeconds = 0;
-let leg = 'right';
-let pausemenu = false;
 
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
@@ -40,14 +36,10 @@ for (let i = 0; i < gridSize; i++) {
 
 document.addEventListener('keydown', handleKeyPress);
 
-function animate() {
-    requestAnimationFrame(animate);
-}
 
 document.addEventListener('DOMContentLoaded', () => {
 
     updateTimerUI();
-    animate();
 
     setInterval(() => {
         if (!pausemenu) {
@@ -71,9 +63,7 @@ function updateTimerUI() {
     timerElement.textContent = `${timerMinutes}:${timerSeconds < 10 ? '0' : ''}${timerSeconds}`;
 }
 
-
-
-requestAnimationFrame(animate);
+requestAnimationFrame(updateTimerUI)
 
 async function handleKeyPress(event) {
     if (pausemenu) return;
@@ -113,6 +103,8 @@ async function handleKeyPress(event) {
     }
 }
 
+// export {pauseTime};
+
 function movePlayer(direction) {
     playerDiv.style.backgroundImage = `url(${path}${direction}-${leg === 'right' ? '1' : '2'}.png)`;
     leg = leg === 'right' ? 'left' : 'right';
@@ -141,6 +133,46 @@ function movePlayerTo(newRow, newCol) {
 
 
 
+async function placeBomb() {
+    console.log("Vous disposez de :", Bombs, "bombs", "Possibilité de placement de bomb :", canPose);
+
+    if (canPose && Bombs > 0 && !bombExploiding) {
+        const bombPos = { row: parseInt(playerDiv.dataset.row), col: parseInt(playerDiv.dataset.col) };
+        const bombCell = cells[bombPos.row * gridSize + bombPos.col];
+        bombCell.classList.add('bomb');
+
+        Bombs--;
+        canPose = false; // Désactiver la possibilité de poser une bombe temporairement
+
+        bombExploiding = true;
+        setTimeout(async function () {
+            await explodeBomb(bombPos);
+            canPose = true; // Réactiver la possibilité de poser une bombe
+            bombExploiding = false;
+        }, bombDelay);
+    }
+}
+
+async function explodeBomb(bombPos) {
+    const bombCell = cells[bombPos.row * gridSize + bombPos.col];
+    while (pausemenu) {
+        await delay(1)
+        bombCell.style.animationPlayState = "paused"
+    }
+    bombCell.style.animationPlayState = 'running'
+    await delay(1000)
+    bombCell.classList.remove('bomb');
+    Bombs++
+    propagateExplosion(bombPos.row, bombPos.col);
+    await delay(100);
+    propagateExplosion(bombPos.row - 1, bombPos.col);
+    await delay(100);
+    propagateExplosion(bombPos.row + 1, bombPos.col);
+    await delay(100);
+    propagateExplosion(bombPos.row, bombPos.col - 1);
+    await delay(100);
+    propagateExplosion(bombPos.row, bombPos.col + 1);
+}
 
 export function incrementScore() {
     score += 10;
@@ -160,7 +192,6 @@ export function handlePlayerCollision() {
 
 
 function updateLivesUI() {
-    // Supprime toutes les vies actuelles du DOM.
     livesContainer.innerHTML = '';
 
     // Ajoute le nombre actuel de vies au DOM.
@@ -229,3 +260,4 @@ function gameEnd() {
     grid.style.display = 'none'
     gameActivity.style.display = 'none'
 }
+

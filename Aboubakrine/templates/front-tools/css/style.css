@@ -37,14 +37,14 @@ body{
 .empty {
     background-color: green;
 }
-.player.bomb {
+/* .player.bomb {
     transition: all 0.1s ease;
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url('../images/right-3.png');
     background-position: center;
     animation-play-state: paused;
-}
+} */
 .player {
     transition: top 0.2s ease, left 0.2s ease, transform 0.2s ease;
     width: 40px;
@@ -159,4 +159,8 @@ body.menu-overlay::before {
     .stats{
         display: none !important;
       }
+}
+.lives span {
+    color: red;
+    margin-right: 5px; 
 }
