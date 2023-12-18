@@ -157,9 +157,7 @@ async function explodeBomb(bombPos) {
     const bombCell = cells[bombPos.row * gridSize + bombPos.col];
     while (pausemenu) {
         await delay(1)
-        bombCell.style.animationPlayState = "paused"
     }
-    bombCell.style.animationPlayState = 'running'
     await delay(1000)
     bombCell.classList.remove('bomb');
     Bombs++

@@ -56,16 +56,17 @@ body{
 }
 
 .bomb {
-    background-image: url('../images/bomb.png');
-    background-size: cover;
-    animation: heartbeat 1s infinite;
+    background-image: url('../images/bomb.gif');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 } 
 .brick{
     background-image: url('../images/brick.png');
     background-size: contain;
 }
 .onde{
-    background-image: url('../images/boom.png');
+    background-image: url('../images/boom.gif');
     background-size: contain;
 }
 @keyframes shake {
