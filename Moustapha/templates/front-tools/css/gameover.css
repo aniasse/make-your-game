@@ -1,0 +1,52 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap'); */
+.App {
+  position: absolute;
+  bottom: 100%;
+  text-align: center;
+  height: 100%;
+}
+.App.over{
+  z-index: 1000;
+  position: relative;
+  bottom: 0;
+  transition: bottom 0.5s;
+  background-color: black; 
+  overflow: hidden;
+  height: 100vh;
+  .grid{
+    display: none;
+  }
+}
+#more{
+  color: white;
+}
+#score{
+  color: yellow;
+}
+#restart{
+  color: green;
+  text-decoration: none;
+}
+
+#exit{
+  color: red;
+  text-decoration: none;
+}
+
+.lost {
+  letter-spacing: 2px;
+  color: white;
+  margin: 20px auto;
+  width: 100%;
+  font-size: 100px;
+  font-family: "Permanent Marker";
+  animation: bloody 4s ease infinite alternate;
+  -webkit-animation: bloody 4s ease infinite alternate;
+  -moz-animation: bloody 4s ease infinite alternate;
+  -o-animation: bloody 4s ease infinite alternate;
+  color: white;
+  padding-top: 100px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  margin: auto;
+}
