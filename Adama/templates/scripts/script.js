@@ -51,6 +51,7 @@ class Enemy {
 
     async move() {
           // Générer un nombre aléatoire entre 0 et 3 pour déterminer la direction.
+          
           const randomDirection = Math.floor(Math.random() * 4);
 
           // Sauvegarder la position actuelle pour la mise à jour après le délai.
@@ -80,7 +81,8 @@ class Enemy {
               // Mettre à jour la position après un délai de 200 millisecondes.
             //   await delay(200);
               this.updatePosition();
-          } else {
+           } 
+           else {
               // Revertir à la position initiale s'il y a un mouvement invalide.
               this.row = currentRow;
               this.col = currentCol;
@@ -89,12 +91,12 @@ class Enemy {
 
     updatePosition() {
         // Mettre à jour la position de l'élément ennemi dans le DOM.
-        this.element.style.transition = "top 1s ease, left 1s ease";
-        this.element.dataset.row = this.row;
-        this.element.dataset.col = this.col;
+        this.element.style.transition = "top 2s ease, left 2s ease";
+       // this.element.style.transition = "none";
         this.element.style.top = `${this.row * 40}px`;
         this.element.style.left = `${this.col * 40}px`;
     }
+    
     destroy() {
         // Supprimer l'élément ennemi de la grille.
         cells.splice(cells.indexOf(this.element), 1);
@@ -194,6 +196,7 @@ function movePlayer(direction) {
 
 function isValidMove(row, col) {
     const isBombCell = cells[row * gridSize + col].classList.contains('bomb');
+    const isEnemyCell = cells[row * gridSize + col].classList.contains('enemy');
     return (
         row >= 0 &&
         row < gridSize &&
@@ -201,7 +204,9 @@ function isValidMove(row, col) {
         col < gridSize &&
         model[row][col] !== "X" &&
         model[row][col] !== "B" &&
-        !isBombCell
+        !isBombCell &&
+        !isEnemyCell
+        
     );
 }
 
