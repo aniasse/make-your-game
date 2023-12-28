@@ -6,6 +6,8 @@ let score = 0, lives = 3, timerMinutes = 5, timerSeconds = 0, leg = 'right', pau
     bombExploiding = false, canPose = true, Bombs = 1, bombDelay = 2000;
 
 
+
+
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
 playerDiv.dataset.col = initPlayerPos.col;
@@ -25,7 +27,9 @@ for (let i = 0; i < gridSize; i++) {
             cell.className = 'cell wall';
         } else if (model[i][j] === "B") {
             cell.className = 'cell brick';
-        } else {
+        } else if (model[i][j] === "E") {
+            cell.className = 'cell enemy'
+        }else {
             cell.className = 'cell empty';
         }
 
@@ -34,7 +38,63 @@ for (let i = 0; i < gridSize; i++) {
     }
 }
 
+
+function moveEnemies() {
+    const enemies = document.querySelectorAll('.cell.enemy');
+    enemies.forEach(enemy => {
+        console.log('Enemy position:', enemy.dataset.row, enemy.dataset.col);
+        // Générer un mouvement aléatoire (haut, bas, gauche, droite)
+        const randomDirection = getRandomDirection();
+        enemy.style.backgroundImage = `url(${path}enemy.gif)`
+        let newRow = parseInt(enemy.dataset.row);
+        let newCol = parseInt(enemy.dataset.col);
+
+        switch (randomDirection) {
+            case 'up':
+                newRow--;
+                break;
+            case 'down':
+                newRow++;
+                break;
+            case 'left':
+                newCol--;
+                break;
+            case 'right':
+                newCol++;
+                break;
+            default:
+                break;
+        }
+
+        // Vérifier si le mouvement est valide
+        if (isValidMove(newRow, newCol)) {
+            moveEnemyTo(enemy, newRow, newCol);
+        }
+    });
+
+    // Appeler la fonction de déplacement des ennemis toutes les 500 millisecondes
+    setTimeout(moveEnemies, 500);
+}
+
+function getRandomDirection() {
+    const directions = ['up', 'down', 'left', 'right'];
+    const randomIndex = Math.floor(Math.random() * directions.length);
+    return directions[randomIndex];
+}
+
+function moveEnemyTo(enemy, newRow, newCol) {
+
+    enemy.style.transition = "top 0.5s ease, left 0.5s ease";
+    enemy.dataset.row = newRow;
+    enemy.dataset.col = newCol;
+    enemy.style.top = `${newRow * 40}px`;
+    enemy.style.left = `${newCol * 40}px`;
+}
+
+
 document.addEventListener('keydown', handleKeyPress);
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -57,6 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }, 1000);
+
+    moveEnemies();
 });
 
 function updateTimerUI() {
@@ -162,13 +224,13 @@ async function explodeBomb(bombPos) {
     bombCell.classList.remove('bomb');
     Bombs++
     propagateExplosion(bombPos.row, bombPos.col);
-    await delay(100);
+    // await delay(100);
     propagateExplosion(bombPos.row - 1, bombPos.col);
-    await delay(100);
+    // await delay(100);
     propagateExplosion(bombPos.row + 1, bombPos.col);
-    await delay(100);
+    // await delay(100);
     propagateExplosion(bombPos.row, bombPos.col - 1);
-    await delay(100);
+    // await delay(100);
     propagateExplosion(bombPos.row, bombPos.col + 1);
 }
 
