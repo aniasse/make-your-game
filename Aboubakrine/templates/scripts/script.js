@@ -28,8 +28,9 @@ for (let i = 0; i < gridSize; i++) {
         } else if (model[i][j] === "B") {
             cell.className = 'cell brick';
         } else if (model[i][j] === "E") {
-            cell.className = 'cell enemy'
-        }else {
+            const enemyDiv = createEnemy(i, j);
+            cell.appendChild(enemyDiv);
+        } else {
             cell.className = 'cell empty';
         }
 
@@ -40,14 +41,11 @@ for (let i = 0; i < gridSize; i++) {
 
 
 function moveEnemies() {
-    const enemies = document.querySelectorAll('.cell.enemy');
-    enemies.forEach(enemy => {
-        console.log('Enemy position:', enemy.dataset.row, enemy.dataset.col);
-        // Générer un mouvement aléatoire (haut, bas, gauche, droite)
+    const enemies = document.querySelectorAll('.enemy');
+    enemies.forEach(enemyDiv => {
         const randomDirection = getRandomDirection();
-        enemy.style.backgroundImage = `url(${path}enemy.gif)`
-        let newRow = parseInt(enemy.dataset.row);
-        let newCol = parseInt(enemy.dataset.col);
+        let newRow = parseInt(enemyDiv.dataset.row);
+        let newCol = parseInt(enemyDiv.dataset.col);
 
         switch (randomDirection) {
             case 'up':
@@ -66,15 +64,14 @@ function moveEnemies() {
                 break;
         }
 
-        // Vérifier si le mouvement est valide
         if (isValidMove(newRow, newCol)) {
-            moveEnemyTo(enemy, newRow, newCol);
+            moveEnemyTo(enemyDiv, newRow, newCol);
         }
     });
 
-    // Appeler la fonction de déplacement des ennemis toutes les 500 millisecondes
     setTimeout(moveEnemies, 500);
 }
+
 
 function getRandomDirection() {
     const directions = ['up', 'down', 'left', 'right'];
@@ -82,15 +79,26 @@ function getRandomDirection() {
     return directions[randomIndex];
 }
 
-function moveEnemyTo(enemy, newRow, newCol) {
+function createEnemy(row, col) {
+    const enemyDiv = document.createElement('div');
+    enemyDiv.classList.add('enemy');
+    enemyDiv.dataset.row = row;
+    enemyDiv.dataset.col = col;
+    enemyDiv.style.backgroundImage = `url(${path}enemy.gif)`;
 
-    enemy.style.transition = "top 0.5s ease, left 0.5s ease";
-    enemy.dataset.row = newRow;
-    enemy.dataset.col = newCol;
-    enemy.style.top = `${newRow * 40}px`;
-    enemy.style.left = `${newCol * 40}px`;
+    return enemyDiv;
 }
 
+function moveEnemyTo(enemyDiv, newRow, newCol) {
+
+    enemyDiv.style.transition = "top 0.5s ease, left 0.5s ease";
+    enemyDiv.dataset.row = newRow;
+    enemyDiv.dataset.col = newCol;
+    enemyDiv.style.top = `${newRow * 40}px`;
+    enemyDiv.style.left = `${newCol * 40}px`;
+}
+
+requestAnimationFrame(moveEnemies)
 
 document.addEventListener('keydown', handleKeyPress);
 
@@ -165,7 +173,6 @@ async function handleKeyPress(event) {
     }
 }
 
-// export {pauseTime};
 
 function movePlayer(direction) {
     playerDiv.style.backgroundImage = `url(${path}${direction}-${leg === 'right' ? '1' : '2'}.png)`;

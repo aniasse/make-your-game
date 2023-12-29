@@ -70,6 +70,9 @@ body{
     background-size: contain;
 }
 .enemy{
+    width: 40px;
+    height: 40px;
+    position: absolute;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
