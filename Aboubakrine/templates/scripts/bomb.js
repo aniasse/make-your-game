@@ -1,6 +1,6 @@
 import { playerDiv, cells, gridSize, model } from "./constants.js";
 
-import { incrementScore, handlePlayerCollision, } from "./script.js";
+import { incrementScore, incrementScore2, handlePlayerCollision, } from "./script.js";
 
 
 
@@ -25,10 +25,8 @@ function propagateExplosion(row, col) {
             const enemyCol = parseInt(enemyDiv.dataset.col);
 
             if (row === enemyRow && col === enemyCol) {
-                // Ennemi touché par l'explosion, vous pouvez ajouter une logique ici pour le supprimer.
                 enemyDiv.remove();
-                // Vous pouvez également ajouter d'autres actions, comme incrémenter le score.
-                incrementScore();
+                incrementScore2();
             }
         });
         if (row === playerRow && col === playerCol) {

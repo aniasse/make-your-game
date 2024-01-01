@@ -257,7 +257,10 @@ export function incrementScore() {
     score += 10;
     scoreElement.textContent = score;
 }
-
+export function incrementScore2() {
+    score += 100;
+    scoreElement.textContent = score;
+}
 let invincible = false;
 
 export function handlePlayerCollision() {
