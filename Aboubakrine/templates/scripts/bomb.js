@@ -19,7 +19,18 @@ function propagateExplosion(row, col) {
         // Vérifie la collision avec le joueur
         const playerRow = parseInt(playerDiv.dataset.row);
         const playerCol = parseInt(playerDiv.dataset.col);
+        const enemies = document.querySelectorAll('.enemy');
+        enemies.forEach(enemyDiv => {
+            const enemyRow = parseInt(enemyDiv.dataset.row);
+            const enemyCol = parseInt(enemyDiv.dataset.col);
 
+            if (row === enemyRow && col === enemyCol) {
+                // Ennemi touché par l'explosion, vous pouvez ajouter une logique ici pour le supprimer.
+                enemyDiv.remove();
+                // Vous pouvez également ajouter d'autres actions, comme incrémenter le score.
+                incrementScore();
+            }
+        });
         if (row === playerRow && col === playerCol) {
             handlePlayerCollision();
         }

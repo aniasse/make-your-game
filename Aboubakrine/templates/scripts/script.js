@@ -6,8 +6,6 @@ let score = 0, lives = 3, timerMinutes = 5, timerSeconds = 0, leg = 'right', pau
     bombExploiding = false, canPose = true, Bombs = 1, bombDelay = 2000;
 
 
-
-
 playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
 playerDiv.dataset.col = initPlayerPos.col;
@@ -29,6 +27,7 @@ for (let i = 0; i < gridSize; i++) {
             cell.className = 'cell brick';
         } else if (model[i][j] === "E") {
             const enemyDiv = createEnemy(i, j);
+            cell.className = 'cell empty';
             cell.appendChild(enemyDiv);
         } else {
             cell.className = 'cell empty';
@@ -44,8 +43,8 @@ function moveEnemies() {
     const enemies = document.querySelectorAll('.enemy');
     enemies.forEach(enemyDiv => {
         const randomDirection = getRandomDirection();
-        let newRow = parseInt(enemyDiv.dataset.row);
-        let newCol = parseInt(enemyDiv.dataset.col);
+        let newRow = parseInt(enemyDiv.dataset.row), newCol = parseInt(enemyDiv.dataset.col),
+            currentRow = parseInt(enemyDiv.dataset.row), currentCol = parseInt(enemyDiv.dataset.col);
 
         switch (randomDirection) {
             case 'up':
@@ -64,12 +63,34 @@ function moveEnemies() {
                 break;
         }
 
-        if (isValidMove(newRow, newCol)) {
+        if ( !pausemenu && isValidMove(newRow, newCol) && !enemiesCollision(newRow, newCol, enemyDiv, enemies)) {
             moveEnemyTo(enemyDiv, newRow, newCol);
+            currentRow = newRow;
+            currentCol = newCol;
+        }
+        const playerRow = parseInt(playerDiv.dataset.row);
+        const playerCol = parseInt(playerDiv.dataset.col);
+
+        if (currentRow === playerRow && currentCol === playerCol) {
+            handlePlayerCollision();
         }
     });
 
-    setTimeout(moveEnemies, 500);
+    setTimeout(moveEnemies, 800);
+}
+
+function enemiesCollision(newRow, newCol, currentEnemy, allEnemies) {
+    for (const enemy of allEnemies) {
+        if (enemy !== currentEnemy) {
+            const enemyRow = parseInt(enemy.dataset.row);
+            const enemyCol = parseInt(enemy.dataset.col);
+
+            if (newRow === enemyRow && newCol === enemyCol) {
+                return true
+            }
+        }
+    }
+    return false
 }
 
 
@@ -91,7 +112,7 @@ function createEnemy(row, col) {
 
 function moveEnemyTo(enemyDiv, newRow, newCol) {
 
-    enemyDiv.style.transition = "top 0.5s ease, left 0.5s ease";
+    enemyDiv.style.transition = "top 0.8s ease, left 0.8s ease";
     enemyDiv.dataset.row = newRow;
     enemyDiv.dataset.col = newCol;
     enemyDiv.style.top = `${newRow * 40}px`;
@@ -101,8 +122,6 @@ function moveEnemyTo(enemyDiv, newRow, newCol) {
 requestAnimationFrame(moveEnemies)
 
 document.addEventListener('keydown', handleKeyPress);
-
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -120,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 updateTimerUI();
             } else {
-                console.log('Game Over - Time Up');
                 gameEnd()
             }
         }
@@ -162,7 +180,6 @@ async function handleKeyPress(event) {
         case ' ':
         case 'Spacebar':
             placeBomb();
-            console.log('placement bomb');
             return;
         default:
             return;
@@ -203,7 +220,6 @@ function movePlayerTo(newRow, newCol) {
 
 
 async function placeBomb() {
-    console.log("Vous disposez de :", Bombs, "bombs", "Possibilité de placement de bomb :", canPose);
 
     if (canPose && Bombs > 0 && !bombExploiding) {
         const bombPos = { row: parseInt(playerDiv.dataset.row), col: parseInt(playerDiv.dataset.col) };
@@ -211,12 +227,12 @@ async function placeBomb() {
         bombCell.classList.add('bomb');
 
         Bombs--;
-        canPose = false; // Désactiver la possibilité de poser une bombe temporairement
+        canPose = false;
 
         bombExploiding = true;
         setTimeout(async function () {
             await explodeBomb(bombPos);
-            canPose = true; // Réactiver la possibilité de poser une bombe
+            canPose = true; 
             bombExploiding = false;
         }, bombDelay);
     }
@@ -231,13 +247,9 @@ async function explodeBomb(bombPos) {
     bombCell.classList.remove('bomb');
     Bombs++
     propagateExplosion(bombPos.row, bombPos.col);
-    // await delay(100);
     propagateExplosion(bombPos.row - 1, bombPos.col);
-    // await delay(100);
     propagateExplosion(bombPos.row + 1, bombPos.col);
-    // await delay(100);
     propagateExplosion(bombPos.row, bombPos.col - 1);
-    // await delay(100);
     propagateExplosion(bombPos.row, bombPos.col + 1);
 }
 
@@ -246,14 +258,20 @@ export function incrementScore() {
     scoreElement.textContent = score;
 }
 
+let invincible = false;
+
 export function handlePlayerCollision() {
-    lives--;
-    console.log('You lose one live point');
-    console.log('you have', lives, 'life points')
-    updateLivesUI();
-    if (lives === 0) {
-        console.log('Game Over');
-        gameEnd()
+    if (!invincible) {
+        lives--;
+        if (lives > 0) {
+            invincible = true;
+            setTimeout(() => {
+                invincible = false;
+            }, 1000);
+            updateLivesUI();
+        } else {
+            gameEnd();
+        }
     }
 }
 
