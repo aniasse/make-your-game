@@ -14,3 +14,5 @@ export const bombDelay = 2000;
 export const EndScore = document.querySelector(".endScore span");
 export const gameOver = document.querySelector(".App");
 export const gameActivity = document.querySelector('.stats')
+export const winScore = document.querySelector(".winScore span");
+export const GameWon = document.querySelector(".Won")

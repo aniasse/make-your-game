@@ -1,5 +1,5 @@
 import { propagateExplosion } from "./bomb.js";
-import { model, gridSize, grid, initPlayerPos, cells, path, playerDiv, EndScore, gameOver, gameActivity } from "./constants.js";
+import { model, gridSize, grid, initPlayerPos, cells, path, playerDiv, EndScore, gameOver, gameActivity, GameWon, winScore } from "./constants.js";
 import { delay } from "./utils.js";
 
 let score = 0, lives = 3, timerMinutes = 5, timerSeconds = 0, leg = 'right', pausemenu = false,
@@ -45,32 +45,32 @@ function moveEnemies() {
         const randomDirection = getRandomDirection();
         let newRow = parseInt(enemyDiv.dataset.row), newCol = parseInt(enemyDiv.dataset.col),
             currentRow = parseInt(enemyDiv.dataset.row), currentCol = parseInt(enemyDiv.dataset.col);
-
+        delay(2000)
         switch (randomDirection) {
             case 'up':
-                if ( !pausemenu && isValidMove(newRow -1, newCol) && !enemiesCollision(newRow -1, newCol, enemyDiv, enemies)) {
-                    moveEnemyTo(enemyDiv, newRow -1, newCol);
+                if (!pausemenu && isValidMove(newRow - 1, newCol) && !enemiesCollision(newRow - 1, newCol, enemyDiv, enemies)) {
+                    moveEnemyTo(enemyDiv, newRow - 1, newCol);
                     newRow--;
-                    break;
                 }
+                break;
             case 'down':
-                if ( !pausemenu && isValidMove(newRow +1, newCol) && !enemiesCollision(newRow +1, newCol, enemyDiv, enemies)) {
-                    moveEnemyTo(enemyDiv, newRow +1, newCol);
+                if (!pausemenu && isValidMove(newRow + 1, newCol) && !enemiesCollision(newRow + 1, newCol, enemyDiv, enemies)) {
+                    moveEnemyTo(enemyDiv, newRow + 1, newCol);
                     newRow++;
-                    break;
                 }
+                break;
             case 'left':
-                if ( !pausemenu && isValidMove(newRow, newCol-1) && !enemiesCollision(newRow, newCol-1, enemyDiv, enemies)) {
-                    moveEnemyTo(enemyDiv, newRow, newCol-1);
+                if (!pausemenu && isValidMove(newRow, newCol - 1) && !enemiesCollision(newRow, newCol - 1, enemyDiv, enemies)) {
+                    moveEnemyTo(enemyDiv, newRow, newCol - 1);
                     newCol--;
-                    break;
                 }
+                break;
             case 'right':
-                if ( !pausemenu && isValidMove(newRow, newCol +1) && !enemiesCollision(newRow, newCol+1, enemyDiv, enemies)) {
-                    moveEnemyTo(enemyDiv, newRow, newCol+1);
+                if (!pausemenu && isValidMove(newRow, newCol + 1) && !enemiesCollision(newRow, newCol + 1, enemyDiv, enemies)) {
+                    moveEnemyTo(enemyDiv, newRow, newCol + 1);
                     newCol++;
-                    break;
                 }
+                break;
             default:
                 break;
         }
@@ -78,8 +78,8 @@ function moveEnemies() {
         // if ( !pausemenu && isValidMove(newRow, newCol) && !enemiesCollision(newRow, newCol, enemyDiv, enemies)) {
         //     moveEnemyTo(enemyDiv, newRow, newCol);
         // }
-        if (!pausemenu) console.log( 'row :', newRow , 'col :', newCol)
-        
+        if (!pausemenu) console.log('row :', newRow, 'col :', newCol)
+
         const playerRow = parseInt(playerDiv.dataset.row);
         const playerCol = parseInt(playerDiv.dataset.col);
 
@@ -87,7 +87,7 @@ function moveEnemies() {
             handlePlayerCollision();
         }
     });
-   if (!pausemenu) console.log('-----------')
+    if (!pausemenu) console.log('-----------')
     setTimeout(moveEnemies, 2000);
 }
 
@@ -131,7 +131,7 @@ function moveEnemyTo(enemyDiv, newRow, newCol) {
     enemyDiv.style.left = `${newCol * 40}px`;
 }
 
-requestAnimationFrame(moveEnemies)
+// requestAnimationFrame(moveEnemies)
 
 document.addEventListener('keydown', handleKeyPress);
 
@@ -244,7 +244,7 @@ async function placeBomb() {
         bombExploiding = true;
         setTimeout(async function () {
             await explodeBomb(bombPos);
-            canPose = true; 
+            canPose = true;
             bombExploiding = false;
         }, bombDelay);
     }
@@ -361,3 +361,19 @@ function gameEnd() {
     gameActivity.style.display = 'none'
 }
 
+function winner(){
+    winScore.textContent = score
+    console.log(score)
+    GameWon.classList.add('winner')
+    grid.style.display = 'none'
+    gameActivity.style.display = 'none'
+}
+
+
+document.addEventListener(
+    'keydown',
+    (event) => {
+        if (event.key == 'b') {
+            winner()
+        }
+    })
