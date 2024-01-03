@@ -48,35 +48,47 @@ function moveEnemies() {
 
         switch (randomDirection) {
             case 'up':
-                newRow--;
-                break;
+                if ( !pausemenu && isValidMove(newRow -1, newCol) && !enemiesCollision(newRow -1, newCol, enemyDiv, enemies)) {
+                    moveEnemyTo(enemyDiv, newRow -1, newCol);
+                    newRow--;
+                    break;
+                }
             case 'down':
-                newRow++;
-                break;
+                if ( !pausemenu && isValidMove(newRow +1, newCol) && !enemiesCollision(newRow +1, newCol, enemyDiv, enemies)) {
+                    moveEnemyTo(enemyDiv, newRow +1, newCol);
+                    newRow++;
+                    break;
+                }
             case 'left':
-                newCol--;
-                break;
+                if ( !pausemenu && isValidMove(newRow, newCol-1) && !enemiesCollision(newRow, newCol-1, enemyDiv, enemies)) {
+                    moveEnemyTo(enemyDiv, newRow, newCol-1);
+                    newCol--;
+                    break;
+                }
             case 'right':
-                newCol++;
-                break;
+                if ( !pausemenu && isValidMove(newRow, newCol +1) && !enemiesCollision(newRow, newCol+1, enemyDiv, enemies)) {
+                    moveEnemyTo(enemyDiv, newRow, newCol+1);
+                    newCol++;
+                    break;
+                }
             default:
                 break;
         }
 
-        if ( !pausemenu && isValidMove(newRow, newCol) && !enemiesCollision(newRow, newCol, enemyDiv, enemies)) {
-            moveEnemyTo(enemyDiv, newRow, newCol);
-            currentRow = newRow;
-            currentCol = newCol;
-        }
+        // if ( !pausemenu && isValidMove(newRow, newCol) && !enemiesCollision(newRow, newCol, enemyDiv, enemies)) {
+        //     moveEnemyTo(enemyDiv, newRow, newCol);
+        // }
+        if (!pausemenu) console.log( 'row :', newRow , 'col :', newCol)
+        
         const playerRow = parseInt(playerDiv.dataset.row);
         const playerCol = parseInt(playerDiv.dataset.col);
 
-        if (currentRow === playerRow && currentCol === playerCol) {
+        if (newRow === playerRow && newCol === playerCol && !pausemenu) {
             handlePlayerCollision();
         }
     });
-
-    setTimeout(moveEnemies, 800);
+   if (!pausemenu) console.log('-----------')
+    setTimeout(moveEnemies, 2000);
 }
 
 function enemiesCollision(newRow, newCol, currentEnemy, allEnemies) {
@@ -112,7 +124,7 @@ function createEnemy(row, col) {
 
 function moveEnemyTo(enemyDiv, newRow, newCol) {
 
-    enemyDiv.style.transition = "top 0.8s ease, left 0.8s ease";
+    enemyDiv.style.transition = "top 0.5s ease, left 0.5s ease";
     enemyDiv.dataset.row = newRow;
     enemyDiv.dataset.col = newCol;
     enemyDiv.style.top = `${newRow * 40}px`;
