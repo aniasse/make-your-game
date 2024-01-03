@@ -43,9 +43,7 @@ function moveEnemies() {
     const enemies = document.querySelectorAll('.enemy');
     enemies.forEach(enemyDiv => {
         const randomDirection = getRandomDirection();
-        let newRow = parseInt(enemyDiv.dataset.row), newCol = parseInt(enemyDiv.dataset.col),
-            currentRow = parseInt(enemyDiv.dataset.row), currentCol = parseInt(enemyDiv.dataset.col);
-        delay(2000)
+        let newRow = parseInt(enemyDiv.dataset.row), newCol = parseInt(enemyDiv.dataset.col);
         switch (randomDirection) {
             case 'up':
                 if (!pausemenu && isValidMove(newRow - 1, newCol) && !enemiesCollision(newRow - 1, newCol, enemyDiv, enemies)) {
@@ -79,16 +77,15 @@ function moveEnemies() {
         //     moveEnemyTo(enemyDiv, newRow, newCol);
         // }
         if (!pausemenu) console.log('row :', newRow, 'col :', newCol)
-
         const playerRow = parseInt(playerDiv.dataset.row);
         const playerCol = parseInt(playerDiv.dataset.col);
-
         if (newRow === playerRow && newCol === playerCol && !pausemenu) {
             handlePlayerCollision();
         }
     });
     if (!pausemenu) console.log('-----------')
-    setTimeout(moveEnemies, 2000);
+    console.log(invincible.value)
+    if (lives > 0) setTimeout(moveEnemies, 2000);
 }
 
 function enemiesCollision(newRow, newCol, currentEnemy, allEnemies) {
@@ -361,7 +358,7 @@ function gameEnd() {
     gameActivity.style.display = 'none'
 }
 
-function winner(){
+function winner() {
     winScore.textContent = score
     console.log(score)
     GameWon.classList.add('winner')
