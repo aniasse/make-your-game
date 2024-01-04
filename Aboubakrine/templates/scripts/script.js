@@ -91,8 +91,9 @@ function enemyKil() {
             handlePlayerCollision();
         }
     }
+    requestAnimationFrame(enemyKil)
 }
-
+enemyKil()
 
 function enemiesCollision(newRow, newCol, currentEnemy, allEnemies) {
     for (const enemy of allEnemies) {
@@ -162,13 +163,16 @@ document.addEventListener('DOMContentLoaded', () => {
     moveEnemies();
 });
 
-const win = () => (enemies.length === 0) && winner();
-
+const win = () => {
+    if (enemies.length === 0) {
+        winner();
+    }
+    requestAnimationFrame(win)
+} 
+win();
 
 function updateTimerUI() {
     timerElement.textContent = `${timerMinutes}:${timerSeconds < 10 ? '0' : ''}${timerSeconds}`;
-    enemyKil();
-    win();
 }
 
 requestAnimationFrame(updateTimerUI)
