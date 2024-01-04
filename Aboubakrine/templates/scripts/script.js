@@ -38,9 +38,11 @@ for (let i = 0; i < gridSize; i++) {
     }
 }
 
+let enemies = document.querySelectorAll('.enemy');
+
 
 function moveEnemies() {
-    const enemies = document.querySelectorAll('.enemy');
+
     enemies.forEach(enemyDiv => {
         const randomDirection = getRandomDirection();
         let newRow = parseInt(enemyDiv.dataset.row), newCol = parseInt(enemyDiv.dataset.col);
@@ -73,20 +75,24 @@ function moveEnemies() {
                 break;
         }
 
-        // if ( !pausemenu && isValidMove(newRow, newCol) && !enemiesCollision(newRow, newCol, enemyDiv, enemies)) {
-        //     moveEnemyTo(enemyDiv, newRow, newCol);
-        // }
-        if (!pausemenu) console.log('row :', newRow, 'col :', newCol)
-        const playerRow = parseInt(playerDiv.dataset.row);
-        const playerCol = parseInt(playerDiv.dataset.col);
-        if (newRow === playerRow && newCol === playerCol && !pausemenu) {
-            handlePlayerCollision();
-        }
     });
-    if (!pausemenu) console.log('-----------')
-    console.log(invincible.value)
+
     if (lives > 0) setTimeout(moveEnemies, 2000);
 }
+
+function enemyKil() {
+    enemies = document.querySelectorAll('.enemy')
+    for (const enemyDiv of enemies) {
+        const enemyRow = parseInt(enemyDiv.dataset.row);
+        const enemyCol = parseInt(enemyDiv.dataset.col);
+        const playerRow = parseInt(playerDiv.dataset.row);
+        const playerCol = parseInt(playerDiv.dataset.col);
+        if (enemyRow === playerRow && enemyCol === playerCol && !pausemenu) {
+            handlePlayerCollision();
+        }
+    }
+}
+
 
 function enemiesCollision(newRow, newCol, currentEnemy, allEnemies) {
     for (const enemy of allEnemies) {
@@ -158,6 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function updateTimerUI() {
     timerElement.textContent = `${timerMinutes}:${timerSeconds < 10 ? '0' : ''}${timerSeconds}`;
+    enemyKil();
+    win();
 }
 
 requestAnimationFrame(updateTimerUI)
@@ -230,7 +238,8 @@ function movePlayerTo(newRow, newCol) {
 
 async function placeBomb() {
 
-    if (canPose && Bombs > 0 && !bombExploiding) {
+    if (canPose && Bombs > 0 && !bombExploiding && lives > 0) {
+        console.log("bomb placed")
         const bombPos = { row: parseInt(playerDiv.dataset.row), col: parseInt(playerDiv.dataset.col) };
         const bombCell = cells[bombPos.row * gridSize + bombPos.col];
         bombCell.classList.add('bomb');
@@ -366,11 +375,11 @@ function winner() {
     gameActivity.style.display = 'none'
 }
 
+function win() {
+    if (enemies.length === 0) {
+        winner()
+    } else {
+        console.log(enemies.length)
+    }
+}
 
-document.addEventListener(
-    'keydown',
-    (event) => {
-        if (event.key == 'b') {
-            winner()
-        }
-    })
