@@ -367,17 +367,19 @@ scoreElement.textContent = score;
 updateLivesUI();
 updateTimerUI();
 
+const battleScene = document.querySelector(".scene")
+
 function gameEnd() {
     EndScore.textContent = score
     gameOver.classList.add('over')
-    grid.style.display = 'none'
+    battleScene.style.display = 'none'
     gameActivity.style.display = 'none'
 }
 
 function winner() {
     winScore.textContent = score
     GameWon.classList.add('winner')
-    grid.style.display = 'none'
+    battleScene.style.display = 'none'
     gameActivity.style.display = 'none'
 }
 
