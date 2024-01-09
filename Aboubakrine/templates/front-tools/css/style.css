@@ -1,19 +1,21 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
-body{
+
+body {
     background: #f0f2f5;
-    
     font-size: 30pt;
     font-family: 'Press Start 2p';
 }
-.grid {
+.grille{
     position: absolute;
     top: 50px;
     left: 28%;
+}
+.grid {
     width: 600px;
     align-items: center;
     background-color: green;
@@ -26,7 +28,7 @@ body{
     width: 40px;
     height: 40px;
     display: inline-block;
-    border-radius: 2px; 
+    border-radius: 2px;
 }
 
 .wall {
@@ -37,6 +39,7 @@ body{
 .empty {
     background-color: green;
 }
+
 .player {
     transition: top 0.2s ease, left 0.2s ease, transform 0.2s ease;
     width: 40px;
@@ -47,22 +50,24 @@ body{
     background-repeat: no-repeat;
 }
 
-.bomb{
+.bomb {
     background-image: url('../images/bomb.gif') !important;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-} 
+}
 
-.brick{
+.brick {
     background-image: url('../images/brick.png');
     background-size: contain;
 }
-.onde{
+
+.onde {
     background-image: url('../images/boom.gif');
     background-size: contain;
 }
-.enemy{
+
+.enemy {
     width: 40px;
     height: 40px;
     position: absolute;
@@ -70,33 +75,48 @@ body{
     background-position: center;
     background-repeat: no-repeat;
 }
+
 @keyframes shake {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(-5px, 5px); }
-    50% { transform: translate(5px, -5px); }
-    75% { transform: translate(-5px, 5px); }
-    100% { transform: translate(0, 0); }
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-5px, 5px);
+    }
+
+    50% {
+        transform: translate(5px, -5px);
+    }
+
+    75% {
+        transform: translate(-5px, 5px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
 }
 
 
 
-#pauseContainer{
+#pauseContainer {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 30px;
     border-radius: 10px;
-   display: none;
-} 
+    display: none;
+}
 
 
-.start-btn{
+.start-btn {
     text-align: center;
     display: table;
-    margin:5px;
+    margin: 5px;
     font-weight: bold;
-    padding: 10px 0 10px 10px ;
+    padding: 10px 0 10px 10px;
     background-color: lightgray;
     text-shadow: -1px -1px black, 1px 1px white;
     color: gray;
@@ -104,12 +124,14 @@ body{
     -moz-border-radius: 7px;
     -o-border-radius: 7px;
     border-radius: 7px;
-    box-shadow: 0 .2em gray; 
+    box-shadow: 0 .2em gray;
     cursor: pointer;
     margin-top: 20px;
-    
+
 }
-.video-game-button:active, .start-btn:active {
+
+.video-game-button:active,
+.start-btn:active {
     box-shadow: none;
     position: relative;
     top: .2em;
@@ -117,15 +139,18 @@ body{
 
 
 body.menu-overlay {
-    overflow: hidden; 
+    overflow: hidden;
     position: relative;
-    .grid{
+
+    .grid {
         position: relative;
     }
-    #pauseContainer{
+
+    #pauseContainer {
         display: block;
     }
 }
+
 body.menu-overlay::before {
     content: "";
     position: fixed;
@@ -133,25 +158,59 @@ body.menu-overlay::before {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.8; 
+    opacity: 0.8;
     backdrop-filter: blur(5px);
-    z-index: 1;  
+    z-index: 1;
 }
 
-.stats{
+.stats {
     position: absolute;
-    left: 28%;
+    top: -48px;
     display: flex;
     justify-content: space-around;
     width: 600px;
     background-color: #6b6666;
 }
-.App.over{
-    .stats{
+
+.App.over {
+    .scene {
         display: none !important;
-      }
+    }
 }
+
 .lives span {
     color: red;
-    margin-right: 5px; 
+    margin-right: 5px;
+}
+
+
+.instructions {
+    width: 25%;
+    margin-top: 10%;
+    margin-left: 20px;
+    padding: 10px;
+    background-color: #f3eaea;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.instructions h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.instructions p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.key {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.key img {
+    width: 100px;
 }

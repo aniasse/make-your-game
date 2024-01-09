@@ -1,6 +1,6 @@
 import { propagateExplosion } from "./bomb.js";
 import { model, gridSize, grid, initPlayerPos, cells, path, playerDiv, EndScore, gameOver, gameActivity, GameWon, winScore } from "./constants.js";
-import { delay } from "./utils.js";
+import { delay, requestTimeout } from "./utils.js";
 
 let score = 0, lives = 3, timerMinutes = 5, timerSeconds = 0, leg = 'right', pausemenu = false,
     bombExploiding = false, canPose = true, Bombs = 1, bombDelay = 2000;
@@ -77,7 +77,7 @@ function moveEnemies() {
 
     });
 
-    if (lives > 0) setTimeout(moveEnemies, 2000);
+    if (lives > 0) requestTimeout(moveEnemies, 2000);
 }
 
 function enemyKil() {
@@ -255,7 +255,7 @@ async function placeBomb() {
         canPose = false;
 
         bombExploiding = true;
-        setTimeout(async function () {
+       requestTimeout(async function () {
             await explodeBomb(bombPos);
             canPose = true;
             bombExploiding = false;
@@ -293,7 +293,7 @@ export function handlePlayerCollision() {
         lives--;
         if (lives > 0) {
             invincible = true;
-            setTimeout(() => {
+            requestTimeout(() => {
                 invincible = false;
             }, 1000);
             updateLivesUI();

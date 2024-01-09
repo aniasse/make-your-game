@@ -20,26 +20,52 @@
         <h1 id="more">Or give up? <a id="exit" href="homepage.html">EXIT</a></h1>
     </div>
     <div class="Won">
-        <h1 id="more">You won, your score is <a class="winScore"><span></span></a></h1>
-        <h1 id="more">Want to replay ? <a id="restart" href="index.html">RESTART</a></h1>
-        <h1 id="more">Or leave ? <a id="exit" href="homepage.html">EXIT</a></h1>
+        <div class="text">
+            <h1 id="more">You won, your score is <a class="winScore"><span></span></a></h1>
+            <h1 id="more">Want to replay ? <a id="restart" href="index.html">RESTART</a></h1>
+            <h1 id="more">Or leave ? <a id="exit" href="homepage.html">EXIT</a></h1>
+        </div>
+        
     </div>
     <div id="pauseContainer">
         <span class='start-btn' id="CONTINUE">CONTINUE</span>
         <span class='start-btn' id="RESTART">RESTART</span>
         <span class='start-btn' id="EXIT">EXIT</span>
     </div>
-    <div class="stats">
-        <div class="score">
-            <span></span>
+
+
+    <div class="scene">
+        <div class="instructions">
+            <h2>How to Play ?</h2>
+            <div class="key">
+                <p>Use <strong>arrow keys</strong> to move the player.</p>
+                <img src="front-tools/images/arrowKey.png" alt="">
+            </div>
+            <div class="key">
+                <p>Press the <strong>spacebar</strong> to place a bomb.</p>
+                <img src="front-tools/images/space.png" alt="">
+            </div>
+            <div class="key">
+                <p>Press <strong>Escape</strong> to pause the game.</p>
+                <img src="front-tools/images/esc.png" alt="">
+            </div>
+            <p>Eliminate all enemies to win the game!</p>
         </div>
-        <div class="timer">
-            <span></span>
-        </div>
-        <div class="lives">
+        <div class="grille">
+            <div class="stats">
+                <div class="score">
+                    <span></span>
+                </div>
+                <div class="timer">
+                    <span></span>
+                </div>
+                <div class="lives">
+                </div>
+            </div>
+            <div class="grid" id="grid"></div>
         </div>
     </div>
-    <div class="grid" id="grid"></div>
+    
 </body>
 
 </html>
