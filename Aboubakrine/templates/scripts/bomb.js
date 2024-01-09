@@ -1,9 +1,5 @@
 import { playerDiv, cells, gridSize, model } from "./constants.js";
 import { incrementScore, incrementScore2, handlePlayerCollision, } from "./script.js";
-import { requestTimeout } from "./utils.js";
-
-
-
 
 // logique d'explosion
 function propagateExplosion(row, col) {

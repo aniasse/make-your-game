@@ -80,6 +80,13 @@ function moveEnemies() {
     if (lives > 0) requestTimeout(moveEnemies, 2000);
 }
 
+const win = () => {
+    if (enemies.length === 0) {
+        winner();
+    }
+} 
+
+
 function enemyKil() {
     enemies = document.querySelectorAll('.enemy')
     for (const enemyDiv of enemies) {
@@ -91,9 +98,8 @@ function enemyKil() {
             handlePlayerCollision();
         }
     }
-    requestAnimationFrame(enemyKil)
 }
-enemyKil()
+
 
 function enemiesCollision(newRow, newCol, currentEnemy, allEnemies) {
     for (const enemy of allEnemies) {
@@ -133,9 +139,10 @@ function moveEnemyTo(enemyDiv, newRow, newCol) {
     enemyDiv.dataset.col = newCol;
     enemyDiv.style.top = `${newRow * 40}px`;
     enemyDiv.style.left = `${newCol * 40}px`;
+
+    enemyKil()
 }
 
-// requestAnimationFrame(moveEnemies)
 
 document.addEventListener('keydown', handleKeyPress);
 
@@ -163,16 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
     moveEnemies();
 });
 
-const win = () => {
-    if (enemies.length === 0) {
-        winner();
-    }
-    requestAnimationFrame(win)
-} 
-win();
+ 
+
 
 function updateTimerUI() {
     timerElement.textContent = `${timerMinutes}:${timerSeconds < 10 ? '0' : ''}${timerSeconds}`;
+    win();
 }
 
 requestAnimationFrame(updateTimerUI)
@@ -239,6 +242,8 @@ function movePlayerTo(newRow, newCol) {
     playerDiv.dataset.col = newCol;
     playerDiv.style.top = `${newRow * 40}px`;
     playerDiv.style.left = `${newCol * 40}px`;
+
+    enemyKil()
 }
 
 
@@ -293,7 +298,7 @@ export function handlePlayerCollision() {
         lives--;
         if (lives > 0) {
             invincible = true;
-            requestTimeout(() => {
+            setTimeout(() => {
                 invincible = false;
             }, 1000);
             updateLivesUI();
