@@ -251,7 +251,6 @@ function movePlayerTo(newRow, newCol) {
 async function placeBomb() {
 
     if (canPose && Bombs > 0 && !bombExploiding && lives > 0 && enemies.length > 0) {
-        // console.log("bomb placed")
         const bombPos = { row: parseInt(playerDiv.dataset.row), col: parseInt(playerDiv.dataset.col) };
         const bombCell = cells[bombPos.row * gridSize + bombPos.col];
         bombCell.classList.add('bomb');
