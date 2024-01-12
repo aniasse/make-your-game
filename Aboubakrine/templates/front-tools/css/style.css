@@ -80,28 +80,29 @@ body {
 
 @keyframes shake {
     0% {
-        transform: translate(0, 0);
-    }
-
-    25% {
-        transform: translate(-5px, 5px);
-    }
-
-    50% {
-        transform: translate(5px, -5px);
-    }
-
-    75% {
-        transform: translate(-5px, 5px);
+        transform: translateY(-50%);
     }
 
     100% {
-        transform: translate(0, 0);
+        transform: translateY(50%);
+    }
+    0%{
+        transform: translateY(-50%);
     }
 }
 
-
-
+.scene{
+    display: flex;
+}
+.imgAnime{
+    position: relative;
+    right: -50vw;
+    top: 25vh;
+    animation: shake 5s infinite ease-in-out;
+}
+.imgAnime img{
+    width: 300px;
+}
 #pauseContainer {
     position: fixed;
     top: 50%;
@@ -191,7 +192,7 @@ body.menu-overlay::before {
     padding: 10px;
     background-color: #f3eaea;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 .instructions h2 {
