@@ -7,6 +7,7 @@
 
 
 .Won.winner {
+  padding-top: 25vh;
   z-index: 1000;
   position: relative;
   bottom: 0;
@@ -15,7 +16,8 @@
   overflow: hidden;
   height: 100vh;
 }
-.Won.winner::before {
+
+/* .Won.winner::before {
   content: '';
   position: absolute;
   top: 0;
@@ -26,4 +28,4 @@
   background-size: cover;
   opacity: 1;
   z-index: -1;
-}
+} */

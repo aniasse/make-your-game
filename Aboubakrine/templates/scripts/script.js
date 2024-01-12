@@ -10,6 +10,9 @@ playerDiv.classList.add('player');
 playerDiv.dataset.row = initPlayerPos.row;
 playerDiv.dataset.col = initPlayerPos.col;
 playerDiv.style.backgroundImage = `url(${path}right-3.png)`;
+playerDiv.style.willChange = 'transform';
+
+// initialisation grid
 
 for (let i = 0; i < gridSize; i++) {
     for (let j = 0; j < gridSize; j++) {
@@ -100,7 +103,6 @@ function enemyKil() {
     }
 }
 
-
 function enemiesCollision(newRow, newCol, currentEnemy, allEnemies) {
     for (const enemy of allEnemies) {
         if (enemy !== currentEnemy) {
@@ -133,7 +135,6 @@ function createEnemy(row, col) {
 }
 
 function moveEnemyTo(enemyDiv, newRow, newCol) {
-
     enemyDiv.style.transition = "top 0.5s ease, left 0.5s ease";
     enemyDiv.dataset.row = newRow;
     enemyDiv.dataset.col = newCol;
@@ -144,8 +145,10 @@ function moveEnemyTo(enemyDiv, newRow, newCol) {
 }
 
 
-document.addEventListener('keydown', handleKeyPress);
+document.addEventListener('keydown', handleKeyPress, { passive: true });
 
+
+// Timer
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -179,6 +182,8 @@ function updateTimerUI() {
 }
 
 requestAnimationFrame(updateTimerUI)
+
+// gestion deplacement joueur
 
 async function handleKeyPress(event) {
     if (pausemenu) return;
@@ -242,7 +247,6 @@ function movePlayerTo(newRow, newCol) {
     playerDiv.dataset.col = newCol;
     playerDiv.style.top = `${newRow * 40}px`;
     playerDiv.style.left = `${newCol * 40}px`;
-
     enemyKil()
 }
 
@@ -310,7 +314,6 @@ export function handlePlayerCollision() {
 
 function updateLivesUI() {
     livesContainer.innerHTML = '';
-
     // Ajoute le nombre actuel de vies au DOM.
     for (let i = 0; i < lives; i++) {
         const heartIcon = document.createElement('span');
