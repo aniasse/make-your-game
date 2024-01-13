@@ -100,9 +100,9 @@ body {
     top: 25vh;
     animation: shake 5s infinite ease-in-out;
 }
-.imgAnime img{
+/* .imgAnime img{
     width: 300px;
-}
+} */
 #pauseContainer {
     position: fixed;
     top: 50%;
