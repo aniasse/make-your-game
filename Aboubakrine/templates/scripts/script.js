@@ -87,8 +87,9 @@ const win = () => {
     if (enemies.length === 0) {
         winner();
     }
+    requestAnimationFrame(win)
 } 
-
+win()
 
 function enemyKil() {
     enemies = document.querySelectorAll('.enemy')
@@ -178,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function updateTimerUI() {
     timerElement.textContent = `${timerMinutes}:${timerSeconds < 10 ? '0' : ''}${timerSeconds}`;
-    win();
 }
 
 requestAnimationFrame(updateTimerUI)
