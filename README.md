@@ -34,10 +34,6 @@ Welcome to the Bomberman Game project! This project is a browser-based implement
     │   ├── utils.js
     │   ├── bombs.js
     │   └── pattern.js
-    │
-    └── assets
-        └── sounds
-            └── click.mp3
 
 
 
