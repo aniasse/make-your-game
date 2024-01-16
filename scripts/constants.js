@@ -1,7 +1,6 @@
 import { pattern } from "./pattern.js";
 
-export const path = "/templates/front-tools/images/"
-// const model = patterns[randomIndex];
+export const path = "/front-tools/images/"
 export const model= pattern
 export const gridSize = 15;
 export const grid = document.getElementById('grid');
