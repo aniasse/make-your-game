@@ -1,6 +1,6 @@
 import { pattern } from "./pattern.js";
 
-export const path = "/Aboubakrine/templates/front-tools/images/"
+export const path = "/templates/front-tools/images/"
 // const model = patterns[randomIndex];
 export const model= pattern
 export const gridSize = 15;
