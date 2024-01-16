@@ -100,15 +100,7 @@ body {
     top: 25vh;
     animation: shake 5s infinite ease-in-out;
 }
-#pauseContainer {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 30px;
-    border-radius: 10px;
-    display: none;
-}
+
 
 
 .start-btn {
@@ -118,50 +110,51 @@ body {
     font-weight: bold;
     padding: 10px 0 10px 10px;
     background-color: lightgray;
-    text-shadow: -1px -1px black, 1px 1px white;
     color: gray;
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    -o-border-radius: 7px;
     border-radius: 7px;
     box-shadow: 0 .2em gray;
     cursor: pointer;
     margin-top: 20px;
 
 }
-
+.start-btn:hover{
+    background-color: darkgray;
+    color: white;
+}
 .video-game-button:active,
 .start-btn:active {
     box-shadow: none;
     position: relative;
     top: .2em;
 }
-
-
-body.menu-overlay {
-    overflow: hidden;
-    position: relative;
-
-    .grid {
-        position: relative;
-    }
-
-    #pauseContainer {
-        display: block;
-    }
-}
-
-body.menu-overlay::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+.pauseMenu {
+    position: absolute;
+    bottom: 100%;
+    text-align: center;
     height: 100%;
-    opacity: 0.8;
-    backdrop-filter: blur(5px);
-    z-index: 1;
+  }
+  
+  
+  .pauseMenu.paused {
+    padding-top: 25vh;
+    z-index: 1000;
+    position: relative;
+    bottom: 0;
+    transition: bottom 0.5s;
+    background: linear-gradient(to bottom, #ff66b2, #66b2ff);
+    overflow: hidden;
+    height: 100vh;
+  }
+.pauseMenu.paused .actions {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    border-radius: 10px;
+    /* display: none; */
 }
+
 .App.over{
     .scene{
         display: none;

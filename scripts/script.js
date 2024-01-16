@@ -1,5 +1,9 @@
 import { propagateExplosion } from "./bomb.js";
-import { model, gridSize, grid, initPlayerPos, cells, path, playerDiv, EndScore, gameOver, gameActivity, GameWon, winScore } from "./constants.js";
+import {
+    model, gridSize, grid, initPlayerPos, cells,
+    path, playerDiv, EndScore, gameOver, gameActivity,
+    GameWon, winScore, battleScene, PauseMenu
+} from "./constants.js";
 import { delay, requestTimeout } from "./utils.js";
 
 let score = 0, lives = 3, timerMinutes = 5, timerSeconds = 0, leg = 'right', pausemenu = false,
@@ -51,25 +55,29 @@ function moveEnemies() {
         let newRow = parseInt(enemyDiv.dataset.row), newCol = parseInt(enemyDiv.dataset.col);
         switch (randomDirection) {
             case 'up':
-                if (!pausemenu && isValidMove(newRow - 1, newCol) && !enemiesCollision(newRow - 1, newCol, enemyDiv, enemies)) {
+                if (!pausemenu && isValidMove(newRow - 1, newCol) &&
+                    !enemiesCollision(newRow - 1, newCol, enemyDiv, enemies)) {
                     moveEnemyTo(enemyDiv, newRow - 1, newCol);
                     newRow--;
                 }
                 break;
             case 'down':
-                if (!pausemenu && isValidMove(newRow + 1, newCol) && !enemiesCollision(newRow + 1, newCol, enemyDiv, enemies)) {
+                if (!pausemenu && isValidMove(newRow + 1, newCol) &&
+                    !enemiesCollision(newRow + 1, newCol, enemyDiv, enemies)) {
                     moveEnemyTo(enemyDiv, newRow + 1, newCol);
                     newRow++;
                 }
                 break;
             case 'left':
-                if (!pausemenu && isValidMove(newRow, newCol - 1) && !enemiesCollision(newRow, newCol - 1, enemyDiv, enemies)) {
+                if (!pausemenu && isValidMove(newRow, newCol - 1) &&
+                    !enemiesCollision(newRow, newCol - 1, enemyDiv, enemies)) {
                     moveEnemyTo(enemyDiv, newRow, newCol - 1);
                     newCol--;
                 }
                 break;
             case 'right':
-                if (!pausemenu && isValidMove(newRow, newCol + 1) && !enemiesCollision(newRow, newCol + 1, enemyDiv, enemies)) {
+                if (!pausemenu && isValidMove(newRow, newCol + 1) &&
+                    !enemiesCollision(newRow, newCol + 1, enemyDiv, enemies)) {
                     moveEnemyTo(enemyDiv, newRow, newCol + 1);
                     newCol++;
                 }
@@ -88,7 +96,7 @@ const win = () => {
         winner();
     }
     requestAnimationFrame(win)
-} 
+}
 win()
 
 function enemyKil() {
@@ -174,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     moveEnemies();
 });
 
- 
+
 
 
 function updateTimerUI() {
@@ -263,7 +271,7 @@ async function placeBomb() {
         canPose = false;
 
         bombExploiding = true;
-       requestTimeout(async function () {
+        requestTimeout(async function () {
             await explodeBomb(bombPos);
             canPose = true;
             bombExploiding = false;
@@ -327,9 +335,9 @@ function updateLivesUI() {
 
 function work() {
     function ResumeGame() {
-        document.getElementById("pauseContainer").style.zIndex = "0";
-        pausemenu = false
-        document.body.classList.remove("menu-overlay");
+        pausemenu = false;
+        PauseMenu.classList.remove("paused");
+        battleScene.style.display = 'flex';
     }
     function RestartGame() {
         window.location.reload()
@@ -352,15 +360,15 @@ document.addEventListener(
     (event) => {
         if (event.key == 'Escape') {
             if (pausemenu) {
-                document.getElementById("pauseContainer").style.zIndex = "0";
-                pausemenu = false
-                document.body.classList.remove("menu-overlay");
-
+                pausemenu = false;
+                PauseMenu.classList.remove("paused");
+                battleScene.style.display = 'flex';
             } else {
-                document.getElementById("pauseContainer").style.zIndex = "2";
-                pausemenu = true
-                document.body.classList.add("menu-overlay");
+                pausemenu = true;
+                PauseMenu.classList.add("paused");
+                battleScene.style.display = 'none';
             }
+
         }
     })
 
@@ -374,7 +382,7 @@ scoreElement.textContent = score;
 updateLivesUI();
 updateTimerUI();
 
-const battleScene = document.querySelector(".scene")
+
 
 function gameEnd() {
     EndScore.textContent = score

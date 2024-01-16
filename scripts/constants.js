@@ -10,8 +10,10 @@ export const playerDiv = document.createElement('div');
 export const initPlayerPos = { row: 1, col: 1 };
 // delai avant explosion bomb
 export const bombDelay = 2000;
+export const PauseMenu = document.querySelector(".pauseMenu")
 export const EndScore = document.querySelector(".endScore span");
 export const gameOver = document.querySelector(".App");
 export const gameActivity = document.querySelector('.stats')
 export const winScore = document.querySelector(".winScore span");
 export const GameWon = document.querySelector(".Won")
+export const battleScene = document.querySelector(".scene")
