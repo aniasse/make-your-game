@@ -92,12 +92,11 @@ function moveEnemies() {
 }
 
 const win = () => {
-    if (enemies.length === 0) {
+    if (enemies.length === 1) {
         winner();
     }
-    requestAnimationFrame(win)
 }
-win()
+
 
 function enemyKil() {
     enemies = document.querySelectorAll('.enemy')
@@ -292,6 +291,7 @@ async function explodeBomb(bombPos) {
     propagateExplosion(bombPos.row + 1, bombPos.col);
     propagateExplosion(bombPos.row, bombPos.col - 1);
     propagateExplosion(bombPos.row, bombPos.col + 1);
+    win()
 }
 
 export function incrementScore() {
