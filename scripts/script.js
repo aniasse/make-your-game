@@ -95,9 +95,6 @@ export const win = () => {
     enemies = document.querySelectorAll('.enemy')
     if (enemies.length === 0) {
         winner();
-        console.log('win')
-    } else {
-        console.log("on focus, rest", enemies.length)
     }
 }
 
