@@ -1,5 +1,5 @@
 import { playerDiv, cells, gridSize, model } from "./constants.js";
-import { incrementScore, incrementScore2, handlePlayerCollision, } from "./script.js";
+import { incrementScore, incrementScore2, handlePlayerCollision, win} from "./script.js";
 
 // logique d'explosion
 function propagateExplosion(row, col) {
@@ -23,6 +23,7 @@ function propagateExplosion(row, col) {
             if (row === enemyRow && col === enemyCol) {
                 enemyDiv.remove();
                 incrementScore2();
+                win();
             }
         });
         if (row === playerRow && col === playerCol) {

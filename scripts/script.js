@@ -91,15 +91,19 @@ function moveEnemies() {
     if (lives > 0) requestTimeout(moveEnemies, 2000);
 }
 
-const win = () => {
-    if (enemies.length === 1) {
+export const win = () => {
+    enemies = document.querySelectorAll('.enemy')
+    if (enemies.length === 0) {
         winner();
+        console.log('win')
+    } else {
+        console.log("on focus, rest", enemies.length)
     }
 }
 
 
 function enemyKil() {
-    enemies = document.querySelectorAll('.enemy')
+    
     for (const enemyDiv of enemies) {
         const enemyRow = parseInt(enemyDiv.dataset.row);
         const enemyCol = parseInt(enemyDiv.dataset.col);
@@ -291,7 +295,6 @@ async function explodeBomb(bombPos) {
     propagateExplosion(bombPos.row + 1, bombPos.col);
     propagateExplosion(bombPos.row, bombPos.col - 1);
     propagateExplosion(bombPos.row, bombPos.col + 1);
-    win()
 }
 
 export function incrementScore() {
@@ -301,6 +304,7 @@ export function incrementScore() {
 export function incrementScore2() {
     score += 100;
     scoreElement.textContent = score;
+    
 }
 let invincible = false;
 
