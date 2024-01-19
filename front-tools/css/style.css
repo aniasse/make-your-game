@@ -10,11 +10,13 @@ body {
     font-size: 30pt;
     font-family: 'Press Start 2p';
 }
-.grille{
+
+.grille {
     position: absolute;
     top: 50px;
     left: 28%;
 }
+
 .grid {
     width: 600px;
     align-items: center;
@@ -86,15 +88,17 @@ body {
     100% {
         transform: translateY(50%);
     }
-    0%{
+
+    0% {
         transform: translateY(-50%);
     }
 }
 
-.scene{
+.scene {
     display: flex;
 }
-.imgAnime{
+
+.imgAnime {
     position: relative;
     right: -50vw;
     top: 25vh;
@@ -117,34 +121,38 @@ body {
     margin-top: 20px;
 
 }
-.start-btn:hover{
+
+.start-btn:hover {
     background-color: darkgray;
     color: white;
 }
+
 .video-game-button:active,
 .start-btn:active {
     box-shadow: none;
     position: relative;
     top: .2em;
 }
+
 .pauseMenu {
     position: absolute;
     bottom: 100%;
     text-align: center;
     height: 100%;
-  }
-  
-  
-  .pauseMenu.paused {
+}
+
+
+.pauseMenu.paused {
     padding-top: 25vh;
-    z-index: 1000;
+    z-index: 2;
     position: relative;
     bottom: 0;
     transition: bottom 0.5s;
-    background: linear-gradient(to bottom, #ff66b2, #66b2ff);
+    background: linear-gradient(45deg, #ff66b2, #66b2ff, #ffffff);
     overflow: hidden;
     height: 100vh;
-  }
+}
+
 .pauseMenu.paused .actions {
     position: fixed;
     top: 50%;
@@ -155,11 +163,12 @@ body {
     /* display: none; */
 }
 
-.App.over{
-    .scene{
+.App.over {
+    .scene {
         display: none;
     }
 }
+
 .stats {
     position: absolute;
     top: -48px;

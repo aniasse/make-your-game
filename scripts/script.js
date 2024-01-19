@@ -91,8 +91,7 @@ function moveEnemies() {
     if (lives > 0) requestTimeout(moveEnemies, 2000);
 }
 
-export const win = () => {
-    enemies = document.querySelectorAll('.enemy')
+const win = () => {
     if (enemies.length === 0) {
         winner();
     }
@@ -292,6 +291,7 @@ async function explodeBomb(bombPos) {
     propagateExplosion(bombPos.row + 1, bombPos.col);
     propagateExplosion(bombPos.row, bombPos.col - 1);
     propagateExplosion(bombPos.row, bombPos.col + 1);
+    
 }
 
 export function incrementScore() {
@@ -299,9 +299,10 @@ export function incrementScore() {
     scoreElement.textContent = score;
 }
 export function incrementScore2() {
-    score += 100;
+    enemies = document.querySelectorAll('.enemy')
     scoreElement.textContent = score;
-    
+    score += 100;
+    win();
 }
 let invincible = false;
 
@@ -366,8 +367,8 @@ document.addEventListener(
                 battleScene.style.display = 'flex';
             } else {
                 pausemenu = true;
-                PauseMenu.classList.add("paused");
                 battleScene.style.display = 'none';
+                PauseMenu.classList.add("paused");
             }
 
         }
